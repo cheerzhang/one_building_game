@@ -1,64 +1,10 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#09151f">
-  <meta name="description" content="在末日风雪中经营一栋容纳完整文明的大楼。">
-  <title>一栋楼 · 生存模拟</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header class="topbar">
-    <div><span class="eyebrow">VERTICAL CIVILIZATION</span><h1>一栋楼</h1></div>
-    <div class="version">游戏更新到 <strong id="version">v0.1.0</strong></div>
-  </header>
-
-  <main>
-    <section class="status-strip" aria-label="城市状态">
-      <div><span>生存</span><b id="years">0.0 年</b></div>
-      <div><span>人口</span><b id="population">4</b></div>
-      <div><span>资金</span><b id="money">¥8,000</b></div>
-      <div><span>食物</span><b id="food">120</b></div>
-      <div><span>科研</span><b id="science">0</b></div>
-      <div><span>满意度</span><b id="morale">70%</b></div>
-    </section>
-
-    <section class="game-shell">
-      <aside class="panel build-panel">
-        <div class="panel-title"><h2>建造目录</h2><button id="speedButton" class="chip">速度 ×1</button></div>
-        <div id="categoryTabs" class="tabs"></div>
-        <div id="roomCatalog" class="catalog"></div>
-      </aside>
-
-      <section class="world" aria-label="大楼剖面">
-        <div class="weather"><span id="weatherIcon">❄</span><div><b id="weatherName">极寒风雪</b><small id="weatherEffect">食物消耗 +10%</small></div></div>
-        <div class="sky" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-        <div id="building" class="building"></div>
-        <div class="ground"><span>永久冻土层</span><span>外界温度 −42°C</span></div>
-      </section>
-
-      <aside class="panel people-panel">
-        <div class="panel-title"><h2>居民档案</h2><button id="modeButton" class="mode-button">玩家模式</button></div>
-        <div id="aiStatus" class="ai-status hidden"></div>
-        <div id="peopleList" class="people-list"></div>
-      </aside>
-    </section>
-
-    <section class="bottom-grid">
-      <div class="panel research-panel">
-        <div class="panel-title"><h2>科研树</h2><span>建造科研室后持续产出</span></div>
-        <div id="researchTree" class="research-tree"></div>
-      </div>
-      <div class="panel log-panel">
-        <div class="panel-title"><h2>大楼纪事</h2><button id="saveButton" class="text-button">保存</button></div>
-        <div id="eventLog" class="event-log"></div>
-      </div>
-    </section>
-  </main>
-
-  <div id="toast" class="toast" role="status"></div>
-  <script src="build-info.js"></script>
-  <script src="game.js"></script>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#07131c"><title>一栋楼 · 生存模拟</title><link rel="stylesheet" href="style.css"></head><body><div class="app">
+<header><div><span class="eyebrow">VERTICAL CIVILIZATION</span><h1>一栋楼</h1></div><div class="weather"><b>❄ 极寒风雪</b><small>外界 −42°C</small></div></header>
+<section class="stats"><div><span>生存</span><b id="years">0.0年</b></div><div><span>人口</span><b id="population">4</b></div><div><span>资金</span><b id="money">¥8,000</b></div><div><span>食物</span><b id="food">120</b></div></section>
+<main><section id="view-building" class="view active"><div class="building-head"><div><b>大楼剖面</b><small>拖动居民安排工作 · 点按查看属性</small></div><button id="speedButton">×1</button></div><div class="world"><div class="snow"></div><div id="tower" class="tower"></div><div class="ground">永久冻土层 <span>科研 <b id="science">0</b> · 满意度 <b id="morale">70%</b></span></div></div></section>
+<section id="view-build" class="view"><div class="section-head"><h2>建造目录</h2><p>先解锁，再支付建造费用</p></div><div id="categoryTabs" class="pills"></div><div id="roomCatalog" class="catalog"></div></section>
+<section id="view-people" class="view"><div class="section-head"><h2>居民档案</h2><p>查看年龄、健康、技能和当前岗位</p></div><button id="modeButton" class="ai-toggle">切换 AI 自动经营</button><div id="peopleList" class="people-list"></div></section>
+<section id="view-research" class="view"><div class="section-head"><h2>科研树</h2><p>科研室需要科研人才上岗才会产出</p></div><div id="researchTree" class="research-tree"></div></section>
+<section id="view-log" class="view"><div class="section-head"><h2>大楼纪事</h2><p>文明中的每个重要时刻</p></div><div id="eventLog" class="event-log"></div><button id="saveButton" class="save">保存进度</button><div class="version">游戏更新到 <b id="version"></b></div></section></main>
+<nav><button class="active" data-view="building"><span>▥</span>大楼</button><button data-view="build"><span>＋</span>建造</button><button data-view="people"><span>♟</span>居民</button><button data-view="research"><span>⌬</span>科研</button><button data-view="log"><span>≡</span>记录</button></nav></div>
+<div id="personSheet" class="sheet"><button class="sheet-close">×</button><div id="sheetAvatar" class="sheet-avatar"></div><h2 id="sheetName"></h2><p id="sheetRole"></p><div id="sheetStats" class="sheet-stats"></div></div><div id="backdrop" class="backdrop"></div><div id="toast" class="toast"></div><script src="build-info.js"></script><script src="game.js"></script></body></html>

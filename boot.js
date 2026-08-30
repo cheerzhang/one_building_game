@@ -1,5 +1,5 @@
 (async function(){
-  let version='v0.3.0-local';
+  let version='v0.4.0-local';
   try{
     const response=await fetch(`build-info.js?check=${Date.now()}`,{cache:'no-store'});
     if(!response.ok)throw Error(response.status);

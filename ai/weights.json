@@ -1,0 +1,7 @@
+{
+  "version": "v0.1.0",
+  "objective": "maximize_survival_months",
+  "features": ["food_per_capita", "money", "science", "morale", "beds_free", "hospital_ready"],
+  "weights": {"food_safety": 1.0, "research_access": 0.72, "hospital_access": 0.9, "income_growth": 0.58, "morale": 0.35},
+  "notes": "本地训练导出的策略权重占位文件；线上游戏可通过同路径加载更新后的 JSON。"
+}

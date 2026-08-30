@@ -1,0 +1,5 @@
+.production-widget{position:absolute;left:7px;right:7px;top:31px;z-index:9;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px;background:#fff;padding:3px 5px;border:2px solid #111;font-size:8px;font-weight:700}
+.production-track{height:8px;border:2px solid #111;background:#fff;overflow:hidden}
+.production-fill{display:block;height:100%;width:0;background:#111;transition:width .1s linear}
+.production-time{min-width:22px;text-align:right;font-variant-numeric:tabular-nums}
+.production-widget.paused .production-fill{background:#bbb}.production-widget.paused .production-time{color:#777}

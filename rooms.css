@@ -93,6 +93,7 @@
 .worker-options { display: grid; gap: 7px; margin-top: 12px; text-align: left; }
 .worker-option { width: 100%; display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 9px; padding: 8px; border: 3px solid #111; background: #fff; text-align: left; }
 .worker-option.selected { background: #111; color: #fff; }
+.worker-option:disabled { opacity: .42; cursor: not-allowed; }
 .worker-mini { width: 36px; height: 46px; background-image: url('assets/residents-transparent.png'); background-size: 400% 200%; background-repeat: no-repeat; image-rendering: pixelated; }
 .worker-option strong { display: block; font-size: 11px; }
 .worker-option small { display: block; margin-top: 3px; font-size: 8px; opacity: .7; }

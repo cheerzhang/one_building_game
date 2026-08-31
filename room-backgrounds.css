@@ -1,4 +1,0 @@
-.floor.housing .room{background-image:linear-gradient(#0002,#0002),url('assets/room-housing.png')}
-.floor.garden .room{background-image:linear-gradient(#0002,#0002),url('assets/room-garden.png')}
-.floor.ranch .room{background-image:linear-gradient(#0002,#0002),url('assets/room-ranch.png')}
-.floor.housing .room,.floor.garden .room,.floor.ranch .room{background-size:cover;background-position:center}

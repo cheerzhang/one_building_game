@@ -7,28 +7,31 @@
   <title>一栋楼</title>
 </head>
 <body>
-  <main class="app">
+  <div class="app">
     <header>
-      <span>生存建造 WAP 游戏</span>
-      <h1>一栋楼</h1>
+      <div><small>ONE BUILDING</small><h1>一栋楼</h1></div>
+      <div class="header-money"><span>资金</span><b id="headerMoney">€1,000</b></div>
     </header>
-
-    <section class="game-stage" aria-label="游戏区域">
-      <p>新的大楼将在这里开始。</p>
-      <div class="empty-building">
-        <span>F1</span>
-        <strong>第一层等待建造</strong>
-      </div>
+    <section class="quick-stats">
+      <div><span>楼层</span><b id="floorCount">1</b></div><div><span>居民</span><b id="populationCount">4</b></div><div><span>空床</span><b id="bedCount">2</b></div><div><span>版本</span><b id="shortVersion">读取中</b></div>
     </section>
-
-    <footer>游戏更新到 <b id="currentVersion">读取中…</b> 版本</footer>
-  </main>
-
-  <aside id="updateNotice" class="update-notice" hidden>
-    <span id="updateText">发现新版本</span>
-    <button id="updateButton" type="button">立即更新</button>
-  </aside>
-
+    <main>
+      <section id="view-building" class="view active">
+        <div class="view-title"><div><h2>大楼</h2><p>从第一层开始，一层层向上建造。</p></div><button id="goBuild" type="button">＋ 建造</button></div>
+        <div class="tower-shell"><div id="tower" class="tower"></div><div class="ground">地面</div></div>
+      </section>
+      <section id="view-build" class="view"><div class="view-title"><div><h2>建造房间</h2><p>新房间会自动建在大楼顶部。</p></div></div><div id="roomCatalog" class="room-catalog"></div></section>
+      <section id="view-tasks" class="view"><div class="view-title"><div><h2>任务状态</h2><p>完成目标，逐步扩建大楼。</p></div></div><div id="taskList" class="task-list"></div></section>
+      <section id="view-status" class="view"><div class="view-title"><div><h2>游戏总览</h2><p>查看当前存档的整体情况。</p></div></div><div id="overview" class="overview"></div><div class="version-card">游戏更新到 <b id="currentVersion">读取中…</b> 版本</div><button id="resetGame" class="reset-button" type="button">重新开始游戏</button></section>
+    </main>
+    <nav>
+      <button class="active" data-view="building" type="button"><b>▥</b><span>大楼</span></button><button data-view="build" type="button"><b>＋</b><span>建造</span></button><button data-view="tasks" type="button"><b>✓</b><span>任务</span></button><button data-view="status" type="button"><b>≡</b><span>总览</span></button>
+    </nav>
+  </div>
+  <div id="backdrop" class="backdrop"></div>
+  <section id="personSheet" class="person-sheet" aria-label="人物资料"><button id="closeSheet" class="sheet-close" type="button">×</button><div id="sheetSprite" class="big-sprite"></div><h2 id="sheetName"></h2><p id="sheetMeta"></p><div id="sheetSkills" class="sheet-skills"></div></section>
+  <div id="toast" class="toast"></div>
+  <aside id="updateNotice" class="update-notice" hidden><span id="updateText">发现新版本</span><button id="updateButton" type="button">立即更新</button></aside>
   <script src="boot.js"></script>
 </body>
 </html>

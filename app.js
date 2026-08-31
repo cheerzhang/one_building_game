@@ -7,7 +7,7 @@
     garden:{name:'菜园',category:'食品类',cost:400,description:'最多 2 名员工，每人每 20 秒收获 1 份蔬菜。',production:{vegetables:1,label:'🥬 蔬菜'}},
     farm:{name:'牧场',category:'食品类',cost:500,description:'最多 2 名员工，每人每 20 秒产出 1 份肉和 1 份牛奶。',production:{meat:1,milk:1,label:'🥩 肉＋🥛 奶'}},
     park:{name:'花园',category:'满意类',cost:300,description:'提高居民满意度的休闲设施。'},
-    market:{name:'超市',category:'经济类',cost:500,description:'经济设施，后续可提供商品与收入。'},
+    market:{name:'超市',category:'经济类',cost:500,description:'最多 2 名员工，每人每 20 秒赚取 €10。',production:{money:10,label:'💶 收入 €10'}},
     school:{name:'社区学校',category:'技能类',cost:450,description:'学习基础技能的教育房间。'}
   };
   const $=id=>document.getElementById(id),random=array=>array[Math.floor(Math.random()*array.length)],euro=n=>'€'+Math.round(n).toLocaleString('en-US');
@@ -55,7 +55,7 @@
   function closeSheets(){$('personSheet').classList.remove('show');$('roomSheet').classList.remove('show');$('backdrop').classList.remove('show')}
 
   function productionTick(){
-    const now=Date.now();let produced=false;state.floors.forEach(floor=>{const production=ROOMS[floor.type]?.production,workerCount=floor.workerIds.length;if(!production||!workerCount)return;if(!floor.cycleStartedAt)floor.cycleStartedAt=now;const cycles=Math.floor((now-floor.cycleStartedAt)/CYCLE_MS);if(cycles>0){Object.entries(production).forEach(([item,amount])=>{if(item!=='label')state.inventory[item]+=amount*cycles*workerCount});floor.cycleStartedAt+=cycles*CYCLE_MS;produced=true}});if(produced){save();renderInventory();renderOverview()}
+    const now=Date.now();let produced=false;state.floors.forEach(floor=>{const production=ROOMS[floor.type]?.production,workerCount=floor.workerIds.length;if(!production||!workerCount)return;if(!floor.cycleStartedAt)floor.cycleStartedAt=now;const cycles=Math.floor((now-floor.cycleStartedAt)/CYCLE_MS);if(cycles>0){Object.entries(production).forEach(([item,amount])=>{if(item==='label')return;const total=amount*cycles*workerCount;if(item==='money')state.money+=total;else state.inventory[item]+=total});floor.cycleStartedAt+=cycles*CYCLE_MS;produced=true}});if(produced){save();$('headerMoney').textContent=euro(state.money);renderInventory();renderCatalog();renderOverview()}
     document.querySelectorAll('[data-production-floor]').forEach(element=>{const floor=state.floors[Number(element.dataset.productionFloor)];if(!floor?.workerIds.length)return;const elapsed=(now-floor.cycleStartedAt)%CYCLE_MS;element.querySelector('.production-fill').style.width=`${Math.min(100,elapsed/CYCLE_MS*100)}%`;element.querySelector('.production-time').textContent=`${Math.max(0,Math.ceil((CYCLE_MS-elapsed)/1000))}s`});
   }
 

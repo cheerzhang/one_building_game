@@ -1,0 +1,40 @@
+.floor-body {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.room-dorm .floor-body,
+.room-thumb.room-dorm { background-image: url('assets/room-dorm.png'); }
+.room-garden .floor-body,
+.room-thumb.room-garden { background-image: url('assets/room-garden.png'); }
+.room-park .floor-body,
+.room-thumb.room-park { background-image: url('assets/room-park.png'); }
+.room-market .floor-body,
+.room-thumb.room-market { background-image: url('assets/room-market.png'); }
+.room-school .floor-body,
+.room-thumb.room-school { background-image: url('assets/room-school.png'); }
+
+.floor-empty {
+  color: #111;
+  background: #fffc;
+  border-color: #111;
+}
+
+.person {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  filter: drop-shadow(1px 1px 0 #fff);
+}
+
+.room-thumb {
+  width: 45px;
+  height: 45px;
+  border: 3px solid var(--ink);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}

@@ -15,6 +15,11 @@
   style.href=`style.css?v=${encodeURIComponent(version)}`;
   document.head.appendChild(style);
 
+  const roomStyle=document.createElement('link');
+  roomStyle.rel='stylesheet';
+  roomStyle.href=`rooms.css?v=${encodeURIComponent(version)}`;
+  document.head.appendChild(roomStyle);
+
   const app=document.createElement('script');
   app.src=`app.js?v=${encodeURIComponent(version)}`;
   document.body.appendChild(app);

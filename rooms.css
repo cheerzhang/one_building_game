@@ -105,3 +105,20 @@
 .skill-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
 .skill-choices button { padding: 8px 3px; border: 2px solid #111; background: #fff; font-size: 9px; font-weight: 900; }
 .skill-choices button.selected { background: #111; color: #fff; }
+
+.school-person::before {
+  position: absolute;
+  z-index: 3;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 28px;
+  padding: 2px 3px;
+  border: 2px solid #111;
+  font: 900 7px/1 ui-monospace, monospace;
+  white-space: nowrap;
+}
+
+.school-person.role-teacher::before { content: '老师'; background: #111; color: #fff; }
+.school-person.role-student::before { content: '学生'; background: #fff; color: #111; }
+.school-divider { align-self: stretch; width: 0; margin: 4px 5px 0 2px; border-left: 2px dashed #111; opacity: .55; }

@@ -1,1 +1,1 @@
-window.BUILD_VERSION = 'v0.9.1-local';
+window.BUILD_VERSION = 'v0.10.0-local';

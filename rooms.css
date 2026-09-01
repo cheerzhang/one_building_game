@@ -152,7 +152,7 @@
 .elevator-door { position: absolute; z-index: 4; top: 27px; right: 0; bottom: 0; width: 46px; display: grid; place-items: center; border-left: 3px solid #111; background: repeating-linear-gradient(90deg,#ddd 0 8px,#bbb 8px 10px); font: 900 7px ui-monospace,monospace; }
 .elevator-door::after { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 2px solid #111; }
 .tower { position: relative; }
-.elevator-car { position: absolute; z-index: 8; right: 0; bottom: calc(var(--elevator-floor, 0) * 116px); width: 46px; height: 89px; border: 3px solid #111; background: #eee; transition-property: bottom; transition-timing-function: linear; pointer-events: none; }
+.elevator-car { position: absolute; z-index: 8; right: 0; bottom: calc(var(--elevator-floor, 0) * 116px); width: 46px; height: 89px; overflow:hidden; border: 3px solid #111; background: #eee; transition-property: bottom; transition-timing-function: linear; pointer-events: none; }
 .elevator-car.open { background: #fff; }
 .elevator-passenger { width: 36px; height: 48px; position: absolute; left: 3px; bottom: 2px; background-image: url('assets/residents-transparent.png'); background-size: 400% 200%; background-repeat: no-repeat; image-rendering: pixelated; }
 .elevator-passenger[hidden] { display: none; }
@@ -249,6 +249,42 @@
 .health-badge { padding: 3px 5px; border: 2px solid #111; font-size: 7px; font-weight: 900; white-space: nowrap; }
 .health-badge.weak { background: #111; color: #fff; }
 .health-badge.watch { background: #ddd; }
+.section-heading { display:flex; align-items:end; justify-content:space-between; gap:10px; padding-bottom:6px; border-bottom:3px solid #111; }
+.section-heading h3 { padding:0; border:0; }
+.section-heading span { color:#777; font-size:8px; }
+.operation-metrics { display:grid; grid-template-columns:repeat(4,1fr); border:3px solid #111; }
+.operation-metrics > span { min-width:0; padding:7px; border-right:2px solid #111; }
+.operation-metrics > span:last-child { border-right:0; }
+.operation-metrics small { display:block; overflow:hidden; color:#777; font-size:7px; white-space:nowrap; text-overflow:ellipsis; }
+.operation-metrics b { display:block; margin-top:3px; font:900 14px ui-monospace,monospace; }
+.operation-metrics .alert { background:#111; color:#fff; }
+.operation-metrics .alert small { color:#fff; }
+.resident-status-groups { display:grid; gap:6px; }
+.resident-status-group { border:2px solid #111; background:#fff; }
+.resident-status-group > header { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; background:#eee; font-size:9px; }
+.resident-status-group.urgent > header { background:#111; color:#fff; }
+.resident-status-group.watch > header { background:repeating-linear-gradient(-45deg,#fff 0 5px,#ddd 5px 10px); }
+.resident-status-group > header span { font:800 8px ui-monospace,monospace; }
+.resident-status-group > p { margin:0; padding:6px 8px; color:#888; font-size:8px; }
+.resident-status-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.resident-status-list button { min-width:0; display:grid; grid-template-columns:24px minmax(0,1fr) 10px; align-items:center; gap:6px; padding:6px; border:0; border-top:1px solid #bbb; background:#fff; text-align:left; }
+.resident-status-list button:nth-child(odd) { border-right:1px solid #bbb; }
+.resident-status-list i { width:24px; height:24px; display:grid; place-items:center; border:2px solid #111; border-radius:50%; color:#111; font:900 8px/1 inherit; font-style:normal; }
+.resident-status-list span { min-width:0; }
+.resident-status-list strong,.resident-status-list small { display:block; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.resident-status-list strong { font-size:9px; }
+.resident-status-list small { margin-top:2px; color:#777; font-size:7px; }
+.resident-status-list em { font:900 15px/1 ui-monospace,monospace; font-style:normal; }
+.room-status-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+.room-status-card { min-width:0; display:grid; grid-template-columns:30px minmax(0,1fr); gap:7px; align-items:start; padding:7px; border:2px solid #111; background:#fff; }
+.room-status-card.weak { background:#111; color:#fff; }
+.room-status-card.watch { background:repeating-linear-gradient(-45deg,#fff 0 5px,#eee 5px 10px); }
+.room-status-icon { width:30px; height:30px; display:grid; place-items:center; border:2px solid currentColor; font:900 9px ui-monospace,monospace; }
+.room-status-card h4 { margin:0; font-size:9px; }
+.room-status-card b { display:block; margin-top:2px; font-size:10px; }
+.room-status-card p { margin:3px 0 0; color:#777; font-size:7px; line-height:1.35; }
+.room-status-card.weak p { color:#ddd; }
+@media(max-width:390px){.resident-status-list{grid-template-columns:1fr}.resident-status-list button:nth-child(odd){border-right:0}}
 
 .tower-shell { position: relative; isolation: isolate; overflow: hidden; background: #ddd; }
 .tower-shell .tower, .tower-shell .ground { position: relative; z-index: 2; }

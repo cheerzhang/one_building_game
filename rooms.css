@@ -121,6 +121,7 @@
 .skill-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
 .skill-choices button { padding: 8px 3px; border: 2px solid #111; background: #fff; font-size: 9px; font-weight: 900; }
 .skill-choices button.selected { background: #111; color: #fff; }
+.skill-choices button:disabled { opacity: .25; cursor: not-allowed; }
 
 .school-person::before {
   position: absolute;

@@ -2,6 +2,7 @@
   const VERSION=window.BUILD_VERSION||'unknown',SAVE_KEY='one-building-game-v1',CYCLE_MS=20000,GARDEN_MS=60000,PREGNANCY_MS=300000,DAY_MS=600000,MEAL_TIMES=[6,12,20],MILK_TIMES=[6,20];
   const SKILLS=['食品','物流','技术','艺术','服务','科研'];
   const CATEGORIES=['全部','居住类','食品类','满意类','经济类','技能类','服务类'];
+  const DISASTERS=[{className:'disaster-snow',label:'暴雪'},{className:'disaster-radiation',label:'宇宙辐射'},{className:'disaster-rain',label:'强降雨'},{className:'disaster-comet',label:'彗星撞击'}];
   const SURNAMES=['林','周','陈','陆','许','顾','沈','江','苏','叶','唐','程'];
   const GIVEN_NAMES={男:['川','野','星河','远','舟','安','一','辰','晨宇','泽','然','航'],女:['夏','禾','月','晴','宁','岚','秋','棠','悦','安然','星月','念']};
   const ROOMS={
@@ -37,6 +38,8 @@
   function spritePosition(variant){const col=variant%4,row=Math.floor(variant/4);return`${col*(100/3)}% ${row*100}%`}
   function toast(message){toastQueue.push(message);if(toastShowing)return;const showNext=()=>{const next=toastQueue.shift();if(!next){toastShowing=false;return}toastShowing=true;$('toast').textContent=next;$('toast').classList.add('show');setTimeout(()=>{$('toast').classList.remove('show');setTimeout(showNext,220)},1600)};showNext()}
   function showView(name){document.querySelectorAll('.view').forEach(view=>view.classList.toggle('active',view.id===`view-${name}`));document.querySelectorAll('nav button').forEach(button=>button.classList.toggle('active',button.dataset.view===name));window.scrollTo(0,0)}
+  let disasterIndex=0;
+  function rotateDisaster(){const shell=$('towerShell'),label=$('disasterLabel');if(!shell||!label)return;DISASTERS.forEach(disaster=>shell.classList.remove(disaster.className));const disaster=DISASTERS[disasterIndex%DISASTERS.length];shell.classList.add(disaster.className);label.textContent=`外部环境 · ${disaster.label}`;disasterIndex=(disasterIndex+1)%DISASTERS.length}
 
   function buildRoom(type){const room=ROOMS[type];if(!room)return;if(state.money<room.cost)return toast('资金不足');state.money-=room.cost;state.floors.push({id:floorId(state.floors.length),type,residents:[],workerIds:[],cycleStartedAt:null,teacherId:null,studentIds:[],taughtSkill:null,schoolStartedAt:null,barberId:null,barberQueue:[],currentClientId:null,barberStartedAt:null,stock:{vegetables:0,meat:0,milk:0}});save();render();showView('building');toast(`F${state.floors.length} ${room.name}建造完成`)}
   function roomStockLabel(floor){if(floor.type==='garden')return`库存 🥬${floor.stock.vegetables}`;if(floor.type==='farm')return`库存 🥩${floor.stock.meat} 🥛${floor.stock.milk}`;return''}
@@ -157,5 +160,5 @@
   if(localStorage.getItem(acceptedKey)!==VERSION)showUpdate(VERSION);
   async function checkForUpdate(){try{const response=await fetch(`build-info.js?check=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw Error(response.status);const match=(await response.text()).match(/BUILD_VERSION\s*=\s*['"]([^'"]+)/);if(match&&match[1]!==VERSION)showUpdate(match[1],true)}catch(error){console.debug('检查更新失败',error)}}
   updateButton.onclick=()=>{localStorage.setItem(acceptedKey,available);if(available===VERSION){notice.hidden=true;return}const url=new URL(location.href);url.searchParams.set('version',available);location.replace(url)};checkForUpdate();setInterval(checkForUpdate,20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkForUpdate()});
-  render();save();setInterval(productionTick,250);setInterval(barberTick,250);
+  render();save();rotateDisaster();setInterval(rotateDisaster,15000);setInterval(productionTick,250);setInterval(barberTick,250);
 })();

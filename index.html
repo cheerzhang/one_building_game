@@ -19,13 +19,14 @@
       <div><span>🥬 蔬菜</span><b id="vegetableCount">0</b></div>
       <div><span>🥩 肉</span><b id="meatCount">0</b></div>
       <div><span>🥛 牛奶</span><b id="milkCount">0</b></div>
+      <div><span>时间</span><b id="gameClock">第1天 00:00</b></div>
     </section>
     <main>
       <section id="view-building" class="view active">
         <div class="view-title"><div><h2>大楼</h2><p>从第一层开始，一层层向上建造。</p></div><button id="goBuild" type="button">＋ 建造</button></div>
         <div class="tower-shell"><div id="tower" class="tower"></div><div class="ground">地面</div></div>
       </section>
-      <section id="view-build" class="view"><div class="view-title"><div><h2>建造房间</h2><p>新房间会自动建在大楼顶部。</p></div></div><div id="roomCatalog" class="room-catalog"></div></section>
+      <section id="view-build" class="view"><div class="view-title"><div><h2>建造房间</h2><p>新房间会自动建在大楼顶部。</p></div></div><div id="categoryTabs" class="category-tabs"></div><div id="roomCatalog" class="room-catalog"></div></section>
       <section id="view-tasks" class="view"><div class="view-title"><div><h2>任务状态</h2><p>完成目标，逐步扩建大楼。</p></div></div><div id="taskList" class="task-list"></div></section>
       <section id="view-status" class="view"><div class="view-title"><div><h2>游戏总览</h2><p>查看当前存档的整体情况。</p></div></div><div id="overview" class="overview"></div><div class="version-card">游戏更新到 <b id="currentVersion">读取中…</b> 版本</div><button id="resetGame" class="reset-button" type="button">重新开始游戏</button></section>
     </main>
@@ -34,10 +35,10 @@
     </nav>
   </div>
   <div id="backdrop" class="backdrop"></div>
-  <section id="personSheet" class="person-sheet" aria-label="人物资料"><button id="closeSheet" class="sheet-close" type="button">×</button><div id="sheetSprite" class="big-sprite"></div><h2 id="sheetName"></h2><p id="sheetMeta"></p><div id="sheetSkills" class="sheet-skills"></div></section>
+  <section id="personSheet" class="person-sheet" aria-label="人物资料"><button id="closeSheet" class="sheet-close" type="button">×</button><div id="sheetSprite" class="big-sprite"></div><h2 id="sheetName"></h2><p id="sheetMeta"></p><div id="sheetSkills" class="sheet-skills"></div><div id="serviceChoices" class="diet-choices"></div><div id="dietChoices" class="diet-choices"></div><div id="milkChoices" class="diet-choices"></div></section>
   <section id="roomSheet" class="person-sheet room-sheet" aria-label="房间员工"><button id="closeRoomSheet" class="sheet-close" type="button">×</button><div class="room-sheet-icon">工</div><h2 id="roomSheetName"></h2><p id="roomSheetMeta"></p><div id="workerOptions" class="worker-options"></div></section>
   <div id="toast" class="toast"></div>
   <aside id="updateNotice" class="update-notice" hidden><span id="updateText">发现新版本</span><button id="updateButton" type="button">立即更新</button></aside>
-  <script src="boot.js?v=0.5.4"></script>
+  <script src="boot.js?v=0.7.0"></script>
 </body>
 </html>

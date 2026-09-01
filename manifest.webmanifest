@@ -1,0 +1,25 @@
+{
+  "name": "一栋楼",
+  "short_name": "一栋楼",
+  "description": "在永久暴雪中经营最后一栋大楼。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#d8dde0",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "assets/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

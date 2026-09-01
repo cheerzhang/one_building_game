@@ -225,6 +225,19 @@
 
 @media(min-width:601px){.elevator-car{bottom:calc(var(--elevator-floor, 0) * 126px)}}
 @media(min-width:601px){.room-dorm .person{width:50px;height:67px}}
+.death-notice { position:fixed; z-index:70; left:50%; top:50%; transform:translate(-50%,-50%); width:min(calc(100% - 32px),380px); padding:20px; background:#fff; border:4px solid #111; box-shadow:8px 8px 0 #111; text-align:center; }
+.death-notice[hidden] { display:none; }
+.death-notice small { font:900 8px ui-monospace,monospace; letter-spacing:.2em; color:#777; }
+.death-notice h2 { margin:6px 0 4px; font-size:22px; }
+.death-notice .big-sprite { width:68px; height:90px; filter:grayscale(1); opacity:.7; }
+.death-notice > p { margin:2px 0 14px; font-size:10px; color:#555; }
+.death-notice dl { margin:0; border:3px solid #111; text-align:left; }
+.death-notice dl div { display:grid; grid-template-columns:62px 1fr; border-bottom:2px solid #111; }
+.death-notice dl div:last-child { border-bottom:0; }
+.death-notice dt,.death-notice dd { margin:0; padding:8px; font-size:10px; }
+.death-notice dt { font-weight:900; border-right:2px solid #111; background:#eee; }
+.death-notice dd { font-weight:700; }
+.death-notice button { width:100%; margin-top:14px; padding:10px; border:0; background:#111; color:#fff; font-weight:900; }
 
 .status-section { display: grid; gap: 8px; margin-bottom: 16px; }
 .status-section h3 { margin: 0; padding-bottom: 6px; border-bottom: 3px solid #111; font-size: 12px; }

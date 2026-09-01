@@ -45,6 +45,7 @@
   <section id="roomSheet" class="person-sheet room-sheet" aria-label="房间员工"><button id="closeRoomSheet" class="sheet-close" type="button">×</button><div class="room-sheet-icon">工</div><h2 id="roomSheetName"></h2><p id="roomSheetMeta"></p><div id="workerOptions" class="worker-options"></div></section>
   <div id="toast" class="toast"></div>
   <div id="celebration" class="celebration" aria-live="polite"><div id="celebrationConfetti" class="celebration-confetti"></div><strong id="celebrationTitle"></strong><div id="celebrationPeople" class="celebration-people"></div></div>
+  <section id="deathNotice" class="death-notice" role="dialog" aria-modal="true" aria-labelledby="deathNoticeTitle" hidden><small>居民告示</small><h2 id="deathNoticeTitle">居民去世</h2><div id="deathNoticeSprite" class="big-sprite"></div><p id="deathNoticeSummary"></p><dl><div><dt>人物</dt><dd id="deathNoticeName"></dd></div><div><dt>情况</dt><dd id="deathNoticeSituation"></dd></div><div><dt>死因</dt><dd id="deathNoticeCause"></dd></div></dl><button id="confirmDeath" type="button">确定</button></section>
   <aside id="updateNotice" class="update-notice" hidden><span id="updateText">发现新版本</span><button id="updateButton" type="button">立即更新</button></aside>
   <script src="boot.js?v=0.15.2"></script>
 </body>

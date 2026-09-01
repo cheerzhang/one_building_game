@@ -15,6 +15,10 @@
 .room-thumb.room-market { background-image: url('assets/room-market.png'); }
 .room-school .floor-body,
 .room-thumb.room-school { background-image: url('assets/room-school.png'); }
+.room-primary .floor-body,
+.room-thumb.room-primary { background-image: url('assets/room-school.png'); }
+.room-clinic .floor-body,
+.room-thumb.room-clinic { background-image: url('assets/room-school.png'); }
 .room-barber .floor-body,
 .room-thumb.room-barber { background-image: url('assets/room-barber.png'); }
 .room-farm .floor-body,
@@ -36,6 +40,9 @@
 
 .person.sprite-row-0 { margin-bottom: -9px; }
 .person.sprite-row-1 { margin-bottom: -17px; }
+.room-dorm .floor-body { justify-content: flex-start; gap: 3px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; touch-action: pan-x; }
+.room-dorm .floor-body::-webkit-scrollbar { display: none; }
+.room-dorm .person { width: 45px; height: 60px; flex: none; }
 
 .big-sprite {
   background-image: url('assets/residents-transparent.png');
@@ -71,7 +78,7 @@
 .inventory-bar div:last-child { border-right: 0; }
 .inventory-bar b { font: 900 13px ui-monospace, monospace; }
 .inventory-bar div:last-child { flex-direction: column; gap: 1px; }
-.inventory-bar div:last-child b { font-size: 8px; }
+.inventory-bar div:last-child b { font-size: clamp(6px,2vw,8px); letter-spacing: -.05em; white-space: nowrap; }
 
 .floor[data-room] { cursor: pointer; }
 .floor[data-room]:active { outline: 3px solid #111; outline-offset: -7px; }
@@ -156,8 +163,12 @@
 .barber-person::before { position: absolute; z-index: 3; top: -13px; left: 50%; transform: translateX(-50%); padding: 2px 3px; border: 2px solid #111; font: 900 7px/1 ui-monospace,monospace; white-space: nowrap; }
 .barber-person.role-barber::before { content: '理发师'; background: #111; color: #fff; }
 .barber-person.role-client::before { content: '顾客'; background: #fff; color: #111; }
+.clinic-person::before { position: absolute; z-index: 3; top: -13px; left: 50%; transform: translateX(-50%); padding: 2px 3px; border: 2px solid #111; font: 900 7px/1 ui-monospace,monospace; white-space: nowrap; }
+.clinic-person.role-doctor::before { content: '医生'; background: #111; color: #fff; }
+.clinic-person.role-patient::before { content: '病人'; background: #fff; color: #111; }
 
 @media(min-width:601px){.elevator-car{bottom:calc(var(--elevator-floor, 0) * 126px)}}
+@media(min-width:601px){.room-dorm .person{width:50px;height:67px}}
 
 .status-section { display: grid; gap: 8px; margin-bottom: 16px; }
 .status-section h3 { margin: 0; padding-bottom: 6px; border-bottom: 3px solid #111; font-size: 12px; }
@@ -176,7 +187,7 @@
 .tower-shell .tower, .tower-shell .ground { position: relative; z-index: 2; }
 .tower-shell .tower { margin: 0 22px; }
 .tower-shell .ground { background: #fff; }
-.disaster-sky { position: absolute; z-index: 0; inset: 0; overflow: hidden; background: #ddd; }
+.disaster-sky { position: absolute; z-index: 0; inset: 0; overflow: hidden; background: #c8cdd1 url('assets/disaster-blizzard.png') center / cover no-repeat; }
 .disaster-sky::before, .disaster-sky::after { content: ''; position: absolute; inset: -40%; opacity: .8; }
 .disaster-sky i { position: absolute; z-index: 1; width: 4px; height: 4px; background: #111; image-rendering: pixelated; }
 .disaster-sky i:nth-child(1) { left: 8%; top: 10%; animation-delay: -1s; }
@@ -187,7 +198,7 @@
 .disaster-label { position: absolute; z-index: 4; top: 7px; left: 8px; padding: 4px 6px; border: 2px solid #111; background: #fff; font: 900 8px ui-monospace, monospace; }
 .comet { display: none; position: absolute; z-index: 1; width: 20px; height: 10px; border: 3px solid #111; background: #fff; transform: rotate(-25deg); }
 .comet::after { content: ''; position: absolute; width: 42px; height: 4px; right: 13px; top: 0; background: #111; }
-.disaster-snow .disaster-sky i { animation: pixel-snow 3s steps(10) infinite; box-shadow: 8px 16px #fff, -7px 32px #111, 11px 50px #fff; }
+.disaster-snow .disaster-sky i { width: 5px; height: 5px; background: #fff; opacity: .82; animation: pixel-snow 4.5s steps(14) infinite; box-shadow: 8px 16px #fff, -7px 32px #e8e8e8, 11px 50px #fff, 24px 78px #eee; }
 .disaster-rain .disaster-sky { background: #aaa; }
 .disaster-rain .disaster-sky i { width: 3px; height: 14px; animation: pixel-rain 1.1s steps(8) infinite; box-shadow: 12px 38px #111, -10px 72px #fff; }
 .disaster-radiation .disaster-sky { background: #d8d8d8; }
@@ -201,3 +212,8 @@
 @keyframes radiation-drift { from { transform: translateY(-60px); } to { transform: translateY(440px); } }
 @keyframes comet-strike { 0% { left: 110%; top: -20px; } 65%,100% { left: -25%; top: 62%; } }
 @media (prefers-reduced-motion: reduce) { .disaster-sky *, .disaster-sky::before { animation-duration: 12s !important; } }
+.floor-move-controls { position: absolute; z-index: 8; left: 3px; top: 31px; display: grid; gap: 2px; }
+.floor-move-controls button { width: 23px; height: 23px; padding: 0; border: 2px solid #111; background: #fff; font: 900 9px/1 ui-monospace, monospace; box-shadow: 1px 1px 0 #111; }
+.floor-move-controls button:active:not(:disabled) { transform: translate(1px,1px); box-shadow: none; }
+.floor-move-controls button:disabled { color: #aaa; border-color: #888; box-shadow: none; }
+.floor .floor-body { padding-left: 31px; }

@@ -105,6 +105,11 @@
 .worker-option { width: 100%; display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 9px; padding: 8px; border: 3px solid #111; background: #fff; text-align: left; }
 .worker-option.selected { background: #111; color: #fff; }
 .worker-option:disabled { opacity: .42; cursor: not-allowed; }
+.worker-option.compact-ineligible { min-height: 38px; grid-template-columns: 26px 1fr; gap: 7px; padding: 4px 7px; border-width: 2px; }
+.worker-option.compact-ineligible .worker-mini { width: 24px; height: 31px; }
+.worker-option.compact-ineligible strong { display: inline; margin-right: 6px; font-size: 9px; }
+.worker-option.compact-ineligible small { display: inline; margin: 0; font-size: 7px; }
+.worker-option.compact-ineligible em { display: none; }
 .worker-mini { width: 36px; height: 46px; background-image: url('assets/residents-transparent.png'); background-size: 400% 200%; background-repeat: no-repeat; image-rendering: pixelated; }
 .worker-option strong { display: block; font-size: 11px; }
 .worker-option small { display: block; margin-top: 3px; font-size: 8px; opacity: .7; }
@@ -154,6 +159,13 @@
 .person-identity-copy p { margin: 0; color: #555; font-size: 9px; line-height: 1.6; }
 .person-notice { margin-top: 10px; padding: 8px 10px; border: 2px solid #111; background: repeating-linear-gradient(-45deg,#fff 0 5px,#eee 5px 10px); font-size: 9px; font-weight: 900; line-height: 1.45; text-align: left; }
 .person-notice[hidden] { display: none; }
+.person-family { margin-top: 10px; text-align: left; }
+.person-family h3 { margin: 0 0 6px; font-size: 10px; letter-spacing: .08em; }
+.family-list { display: flex; flex-wrap: wrap; gap: 5px; }
+.family-list span { flex: 1 1 92px; min-width: 0; padding: 7px 8px; border: 2px solid #111; }
+.family-list small,.family-list b { display: block; }
+.family-list small { margin-bottom: 3px; color: #777; font-size: 7px; }
+.family-list b { overflow: hidden; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
 .sheet-skills { margin-top: 12px; }
 .sheet-skills h3,.diet-choices h3 { margin: 0 0 7px; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
 .vital-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 12px; }

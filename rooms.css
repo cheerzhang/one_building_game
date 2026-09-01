@@ -98,3 +98,10 @@
 .worker-option strong { display: block; font-size: 11px; }
 .worker-option small { display: block; margin-top: 3px; font-size: 8px; opacity: .7; }
 .worker-option em { font-size: 9px; font-style: normal; font-weight: 900; }
+
+.school-section { display: grid; gap: 6px; padding-top: 10px; border-top: 3px solid #111; }
+.school-section:first-child { padding-top: 0; border-top: 0; }
+.school-section h3 { margin: 0 0 3px; font-size: 11px; }
+.skill-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.skill-choices button { padding: 8px 3px; border: 2px solid #111; background: #fff; font-size: 9px; font-weight: 900; }
+.skill-choices button.selected { background: #111; color: #fff; }

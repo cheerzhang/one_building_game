@@ -147,14 +147,35 @@
 .meal-visitor.direct-meal { animation: direct-meal-walk .8s steps(6) both; }
 @keyframes direct-meal-walk { from { transform: translateX(-70px); } to { transform: translateX(0); } }
 
-.diet-choices { margin-top: 16px; padding-top: 12px; border-top: 3px solid #111; text-align: left; }
-.diet-choices h3 { margin: 0 0 7px; font-size: 11px; }
+.person-identity { display: grid; grid-template-columns: 82px 1fr; align-items: center; gap: 13px; padding: 0 42px 12px 2px; border-bottom: 3px solid #111; text-align: left; }
+.person-identity .big-sprite { width: 75px; height: 100px; margin: 0; }
+.person-identity-copy small { font: 900 8px ui-monospace,monospace; letter-spacing: .16em; color: #777; }
+.person-identity-copy h2 { margin: 5px 0 6px; font-size: 24px; }
+.person-identity-copy p { margin: 0; color: #555; font-size: 9px; line-height: 1.6; }
+.person-notice { margin-top: 10px; padding: 8px 10px; border: 2px solid #111; background: repeating-linear-gradient(-45deg,#fff 0 5px,#eee 5px 10px); font-size: 9px; font-weight: 900; line-height: 1.45; text-align: left; }
+.person-notice[hidden] { display: none; }
+.sheet-skills { margin-top: 12px; }
+.sheet-skills h3,.diet-choices h3 { margin: 0 0 7px; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.vital-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 12px; }
+.skill-row.vital { grid-template-columns: 30px 1fr 22px; padding: 7px; border: 2px solid #111; }
+.ability-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+.ability-item { display: grid; grid-template-columns: 1fr auto; gap: 5px; padding: 7px; border: 2px solid #111; font-size: 9px; text-align: left; }
+.ability-item b { font: 900 11px ui-monospace,monospace; }
+.ability-item .skill-track { grid-column: 1/-1; height: 7px; border-width: 1px; padding: 1px; }
+.person-preferences { display: grid; grid-template-columns: 1fr 1.35fr; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 3px solid #111; }
+.diet-choices { text-align: left; }
+.service-choices { margin-top: 12px; padding-top: 12px; border-top: 3px solid #111; }
+.diet-choices h3 small { margin-left: 4px; color: #777; font-size: 7px; font-weight: 700; letter-spacing: 0; }
 .diet-buttons { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; }
-.diet-buttons button { padding: 8px 3px; border: 2px solid #111; background: #fff; font-size: 9px; font-weight: 900; }
+.diet-buttons button { min-height: 36px; padding: 6px 3px; border: 2px solid #111; background: #fff; font-size: 8px; font-weight: 900; }
 .diet-buttons button.selected { background: #111; color: #fff; }
-.milk-buttons { display: grid; grid-template-columns: repeat(2,1fr); gap: 5px; }
-.milk-buttons button { padding: 8px 3px; border: 2px solid #111; background: #fff; font-size: 9px; font-weight: 900; }
+.milk-buttons { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+.milk-buttons button { min-width: 0; padding: 5px 1px; border: 2px solid #111; background: #fff; font-size: 8px; font-weight: 900; }
+.milk-buttons button b,.milk-buttons button small { display: block; }
+.milk-buttons button small { margin-top: 2px; color: #777; font: 600 6px ui-monospace,monospace; }
 .milk-buttons button.selected { background: #111; color: #fff; }
+.milk-buttons button.selected small { color: #ddd; }
+@media(max-width:390px){.person-preferences{grid-template-columns:1fr}.milk-buttons{gap:5px}}
 .category-tabs { display: flex; gap: 5px; overflow-x: auto; padding: 0 2px 10px; scrollbar-width: none; }
 .category-tabs::-webkit-scrollbar { display: none; }
 .category-tabs button { flex: none; padding: 7px 9px; border: 2px solid #111; background: #fff; font-size: 9px; font-weight: 900; }

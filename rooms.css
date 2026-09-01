@@ -158,3 +158,16 @@
 .barber-person.role-client::before { content: '顾客'; background: #fff; color: #111; }
 
 @media(min-width:601px){.elevator-car{bottom:calc(var(--elevator-floor, 0) * 126px)}}
+
+.status-section { display: grid; gap: 8px; margin-bottom: 16px; }
+.status-section h3 { margin: 0; padding-bottom: 6px; border-bottom: 3px solid #111; font-size: 12px; }
+.status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; }
+.status-metric, .category-report { border: 3px solid #111; padding: 9px; background: #fff; }
+.status-metric span, .category-report small { display: block; color: #666; font-size: 8px; }
+.status-metric b { display: block; margin-top: 5px; font: 900 17px ui-monospace, monospace; }
+.category-report { display: grid; grid-template-columns: 1fr auto; gap: 5px 8px; align-items: start; }
+.category-report h4 { margin: 0; font-size: 11px; }
+.category-report p { grid-column: 1 / -1; margin: 0; color: #666; font-size: 8px; line-height: 1.55; }
+.health-badge { padding: 3px 5px; border: 2px solid #111; font-size: 7px; font-weight: 900; white-space: nowrap; }
+.health-badge.weak { background: #111; color: #fff; }
+.health-badge.watch { background: #ddd; }

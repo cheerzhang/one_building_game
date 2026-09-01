@@ -52,8 +52,8 @@
   position: relative;
   background-image: url('assets/residents-transparent.png');
 }
-.person.no-clothes { background-image: url('assets/residents-underwear.png'); filter: drop-shadow(1px 1px 0 #fff); }
-.big-sprite.no-clothes { background-image: url('assets/residents-underwear.png'); }
+.person.no-clothes { background-image: url('assets/residents-underwear.png?v=5'); }
+.big-sprite.no-clothes { background-image: url('assets/residents-underwear.png?v=5'); }
 
 .room-thumb {
   width: 45px;

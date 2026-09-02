@@ -7,6 +7,8 @@
 
 .room-dorm .floor-body,
 .room-thumb.room-dorm { background-image: url('assets/room-dorm.png'); }
+.room-cityhall .floor-body,
+.room-thumb.room-cityhall { background-image: url('assets/room-cityhall.png?v=1'); }
 .room-apartment .floor-body,
 .room-thumb.room-apartment { background-image: url('assets/room-apartment.png?v=1'); }
 .room-garden .floor-body,
@@ -212,6 +214,7 @@
 .maternity-person::before { position: absolute; z-index: 3; top: -13px; left: 50%; transform: translateX(-50%); padding: 2px 3px; border: 2px solid #111; font: 900 7px/1 ui-monospace,monospace; white-space: nowrap; }
 .maternity-person.role-mother::before { content: '孕妇'; background: #111; color: #fff; }
 .maternity-person.role-father::before { content: '陪产'; background: #fff; color: #111; }
+.cityhall-person::before { content:'市长'; position:absolute; z-index:3; top:-13px; left:50%; transform:translateX(-50%); padding:2px 3px; border:2px solid #111; background:#111; color:#fff; font:900 7px/1 ui-monospace,monospace; white-space:nowrap; }
 
 .celebration { position: fixed; z-index: 70; inset: 0; display: grid; place-content: center; gap: 12px; padding: 24px; background: #fff0; opacity: 0; pointer-events: none; overflow: hidden; text-align: center; }
 .celebration.show { animation: celebration-screen 2.4s steps(4) both; }

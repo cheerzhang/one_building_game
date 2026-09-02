@@ -24,7 +24,7 @@
 .room-barber .floor-body,
 .room-thumb.room-barber { background-image: url('assets/room-barber.png'); }
 .room-clothing .floor-body,
-.room-thumb.room-clothing { background-image: url('assets/room-barber.png'); }
+.room-thumb.room-clothing { background-image: url('assets/room-clothing.png?v=1'); }
 .room-farm .floor-body,
 .room-thumb.room-farm { background-image: url('assets/room-farm.png'); }
 

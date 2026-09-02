@@ -18,7 +18,7 @@
 .room-primary .floor-body,
 .room-thumb.room-primary { background-image: url('assets/room-school.png'); }
 .room-clinic .floor-body,
-.room-thumb.room-clinic { background-image: url('assets/room-school.png'); }
+.room-thumb.room-clinic { background-image: url('assets/room-clinic.png?v=1'); }
 .room-maternity .floor-body,
 .room-thumb.room-maternity { background-image: url('assets/room-maternity.png?v=1'); }
 .room-barber .floor-body,

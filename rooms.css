@@ -201,6 +201,13 @@
 .person-wallet { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 7px; padding:7px 9px; border:3px solid #111; background:#111; color:#fff; box-shadow:3px 3px 0 #aaa; }
 .person-wallet span { font-size:8px; font-weight:900; letter-spacing:.08em; }
 .person-wallet b { font:900 18px/1 ui-monospace,monospace; }
+.reserve-input-row { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:9px; padding:8px 9px; border:2px solid #111; text-align:left; }
+.reserve-input-row span { min-width:0; }
+.reserve-input-row b, .reserve-input-row small { display:block; }
+.reserve-input-row b { font-size:9px; }
+.reserve-input-row small { margin-top:3px; color:#666; font-size:7px; }
+.reserve-input-row input { width:82px; padding:7px 5px; border:3px solid #111; background:#fff; font:900 16px/1 ui-monospace,monospace; text-align:center; }
+.reserve-save { width:100%; margin-top:9px; padding:9px; border:3px solid #111; background:#111; color:#fff; font-size:9px; font-weight:900; }
 .person-identity-copy p { margin: 0; color: #555; font-size: 9px; line-height: 1.6; }
 .person-notice { margin-top: 10px; padding: 8px 10px; border: 2px solid #111; background: repeating-linear-gradient(-45deg,#fff 0 5px,#eee 5px 10px); font-size: 9px; font-weight: 900; line-height: 1.45; text-align: left; }
 .person-notice[hidden] { display: none; }

@@ -208,6 +208,15 @@
 .reserve-input-row small { margin-top:3px; color:#666; font-size:7px; }
 .reserve-input-row input { width:82px; padding:7px 5px; border:3px solid #111; background:#fff; font:900 16px/1 ui-monospace,monospace; text-align:center; }
 .reserve-save { width:100%; margin-top:9px; padding:9px; border:3px solid #111; background:#111; color:#fff; font-size:9px; font-weight:900; }
+.ineligible-workers { margin-top:9px; border:3px solid #111; background:#f4f4f4; }
+.ineligible-workers summary { display:flex; align-items:center; justify-content:space-between; padding:9px 10px; cursor:pointer; list-style:none; font-size:9px; font-weight:900; }
+.ineligible-workers summary::-webkit-details-marker { display:none; }
+.ineligible-workers summary::before { content:'＋'; margin-right:7px; font:900 13px/1 ui-monospace,monospace; }
+.ineligible-workers[open] summary::before { content:'－'; }
+.ineligible-workers summary span { flex:1; text-align:left; }
+.ineligible-workers summary b { font:900 9px ui-monospace,monospace; color:#666; }
+.ineligible-worker-list { padding:0 6px 6px; border-top:2px solid #111; }
+.ineligible-worker-list .worker-option { margin-top:6px; }
 .person-identity-copy p { margin: 0; color: #555; font-size: 9px; line-height: 1.6; }
 .person-notice { margin-top: 10px; padding: 8px 10px; border: 2px solid #111; background: repeating-linear-gradient(-45deg,#fff 0 5px,#eee 5px 10px); font-size: 9px; font-weight: 900; line-height: 1.45; text-align: left; }
 .person-notice[hidden] { display: none; }

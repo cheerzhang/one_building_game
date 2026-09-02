@@ -18,14 +18,15 @@
       <div><small>ONE BUILDING</small><h1>一栋楼</h1></div>
       <div class="header-actions"><button id="pauseGame" class="pause-button" type="button" aria-pressed="false">Ⅱ 暂停</button><div class="header-money"><span>大楼资金</span><b id="headerMoney">€0</b></div></div>
     </header>
-    <section class="quick-stats">
-      <div><span>楼层</span><b id="floorCount">1</b></div><div><span>居民</span><b id="populationCount">4</b></div><div><span>空床</span><b id="bedCount">2</b></div><div><span>版本</span><b id="shortVersion">读取中</b></div>
-    </section>
-    <section class="inventory-bar" aria-label="食物库存">
-      <div><span>🥬 蔬菜</span><b id="vegetableCount">0</b></div>
-      <div><span>🥩 肉</span><b id="meatCount">0</b></div>
-      <div><span>🥛 牛奶</span><b id="milkCount">0</b></div>
-      <div><span>时间</span><b id="gameClock">第1天 00:00</b></div>
+    <section class="status-dashboard" aria-label="大楼重要状态">
+      <div class="dashboard-time"><span>游戏时间</span><b id="gameClock">第1年第1天 00:00</b><small>v<span id="shortVersion">读取中</span></small></div>
+      <div class="dashboard-stat"><span>楼层</span><b id="floorCount">1</b></div>
+      <div class="dashboard-stat"><span>居民</span><b id="populationCount">4</b></div>
+      <div class="dashboard-stat"><span>空床</span><b id="bedCount">2</b></div>
+      <div class="dashboard-stock"><span>🥬<small>蔬菜</small></span><b id="vegetableCount">0</b></div>
+      <div class="dashboard-stock"><span>🥫<small>罐头</small></span><b id="cannedVegetableCount">0</b></div>
+      <div class="dashboard-stock"><span>🥩<small>肉类</small></span><b id="meatCount">0</b></div>
+      <div class="dashboard-stock"><span>🥛<small>牛奶</small></span><b id="milkCount">0</b></div>
     </section>
     <main>
       <section id="view-building" class="view active">

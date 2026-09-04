@@ -406,22 +406,22 @@
 .operation-metrics b { display:block; margin-top:3px; font:900 14px ui-monospace,monospace; }
 .operation-metrics .alert { background:#111; color:#fff; }
 .operation-metrics .alert small { color:#fff; }
-.resident-status-groups { display:grid; gap:6px; }
-.resident-status-group { border:2px solid #111; background:#fff; }
-.resident-status-group > header { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; background:#eee; font-size:9px; }
+.resident-status-groups { display:grid; gap:4px; }
+.resident-status-group { min-height:30px; display:grid; grid-template-columns:62px minmax(0,1fr); border:2px solid #111; background:#fff; }
+.resident-status-group > header { display:flex; justify-content:space-between; align-items:center; gap:4px; padding:5px 6px; border-right:2px solid #111; background:#eee; font-size:8px; }
 .resident-status-group.urgent > header { background:#111; color:#fff; }
 .resident-status-group.watch > header { background:repeating-linear-gradient(-45deg,#fff 0 5px,#ddd 5px 10px); }
-.resident-status-group > header span { font:800 8px ui-monospace,monospace; }
-.resident-status-group > p { margin:0; padding:6px 8px; color:#888; font-size:8px; }
-.resident-status-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-.resident-status-list button { min-width:0; display:grid; grid-template-columns:24px minmax(0,1fr) 10px; align-items:center; gap:6px; padding:6px; border:0; border-top:1px solid #bbb; background:#fff; text-align:left; }
-.resident-status-list button:nth-child(odd) { border-right:1px solid #bbb; }
-.resident-status-list i { width:24px; height:24px; display:grid; place-items:center; border:2px solid #111; border-radius:50%; color:#111; font:900 8px/1 inherit; font-style:normal; }
-.resident-status-list span { min-width:0; }
-.resident-status-list strong,.resident-status-list small { display:block; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
-.resident-status-list strong { font-size:9px; }
-.resident-status-list small { margin-top:2px; color:#777; font-size:7px; }
-.resident-status-list em { font:900 15px/1 ui-monospace,monospace; font-style:normal; }
+.resident-status-group > header span { min-width:17px; padding:2px 3px; background:#fff; color:#111; text-align:center; font:900 8px/1 ui-monospace,monospace; }
+.resident-status-group > p { margin:0; align-self:center; padding:4px 7px; color:#aaa; font-size:8px; }
+.resident-status-list { min-width:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.resident-status-list button { min-width:0; display:flex; align-items:baseline; gap:4px; padding:5px 7px; border:0; border-left:1px solid #ccc; border-bottom:1px solid #ccc; background:#fff; text-align:left; }
+.resident-status-list button:nth-child(odd) { border-left:0; }
+.resident-status-list button:nth-last-child(-n+2) { border-bottom:0; }
+.resident-status-list strong,.resident-status-list small { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.resident-status-list strong { flex:none; max-width:48%; font-size:8px; }
+.resident-status-list small { min-width:0; color:#777; font-size:7px; }
+.resident-status-group.empty { min-height:26px; }
+.resident-status-group.empty > header { padding-block:3px; }
 .room-status-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
 .room-status-card { min-width:0; display:grid; grid-template-columns:30px minmax(0,1fr); gap:7px; align-items:start; padding:7px; border:2px solid #111; background:#fff; }
 .room-status-card.weak { background:#111; color:#fff; }
@@ -431,7 +431,7 @@
 .room-status-card b { display:block; margin-top:2px; font-size:10px; }
 .room-status-card p { margin:3px 0 0; color:#777; font-size:7px; line-height:1.35; }
 .room-status-card.weak p { color:#ddd; }
-@media(max-width:390px){.resident-status-list{grid-template-columns:1fr}.resident-status-list button:nth-child(odd){border-right:0}}
+@media(max-width:390px){.resident-status-group{grid-template-columns:56px minmax(0,1fr)}.resident-status-list{grid-template-columns:1fr}.resident-status-list button{border-left:0}.resident-status-list button:nth-last-child(-n+2){border-bottom:1px solid #ccc}.resident-status-list button:last-child{border-bottom:0}}
 
 .tower-shell { position: relative; isolation: isolate; overflow: hidden; background: #ddd; }
 .tower-shell .tower, .tower-shell .ground { position: relative; z-index: 2; }

@@ -385,6 +385,11 @@
 .death-notice dt { font-weight:900; border-right:2px solid #111; background:#eee; }
 .death-notice dd { font-weight:700; }
 .death-notice button { width:100%; margin-top:14px; padding:10px; border:0; background:#111; color:#fff; font-weight:900; }
+.inheritance-actions { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:12px; }
+.inheritance-actions button { margin:0; }
+.inheritance-actions button:first-child { grid-column:1/-1; }
+.inheritance-actions button:disabled { background:#aaa; }
+.inheritance-actions button:last-child { background:#fff; color:#111; border:2px solid #111; }
 
 .status-section { display: grid; gap: 8px; margin-bottom: 16px; }
 .status-section h3 { margin: 0; padding-bottom: 6px; border-bottom: 3px solid #111; font-size: 12px; }

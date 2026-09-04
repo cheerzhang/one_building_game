@@ -39,6 +39,8 @@
 .room-thumb.room-craft { background-image: url('assets/room-craft.png'); }
 .room-bookstore .floor-body,
 .room-thumb.room-bookstore { background-image: url('assets/room-bookstore.png'); }
+.room-tourism .floor-body,
+.room-thumb.room-tourism { background-image: url('assets/room-tourism.png'); }
 
 .entertainment-summary { display:grid; grid-template-columns:repeat(3,1fr); border:3px solid var(--ink); margin-bottom:10px; background:#fff; }
 .entertainment-summary span { min-width:0; padding:8px 6px; text-align:center; border-right:2px solid var(--ink); }
@@ -51,6 +53,12 @@
 .craft-materials { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:10px; }
 .craft-materials span { display:grid; place-items:center; min-height:46px; border:2px solid var(--ink); background:#fff; font-size:18px; }
 .home-books { position:absolute; right:48px; bottom:5px; z-index:5; padding:3px 5px; border:2px solid var(--ink); background:#fff; font:900 8px ui-monospace,monospace; }
+.travel-settings { margin-top:12px; padding:10px; border:3px solid var(--ink); text-align:left; background:#f6f0e5; }
+.travel-settings h3 { margin:0; font-size:12px; }
+.travel-settings p { margin:4px 0 9px; color:var(--muted); font-size:8px; line-height:1.5; }
+.travel-settings label { display:grid; grid-template-columns:72px 1fr; align-items:center; gap:8px; margin-top:6px; font-size:9px; font-weight:800; }
+.travel-settings select { width:100%; min-height:36px; border:2px solid var(--ink); border-radius:0; background:#fff; padding:5px; font:800 10px inherit; }
+.travel-settings > small { display:block; margin-top:8px; font-size:8px; color:var(--muted); }
 .room-clothing .floor-body,
 .room-thumb.room-clothing { background-image: url('assets/room-clothing.png?v=1'); }
 .room-farm .floor-body,

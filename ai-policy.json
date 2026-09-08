@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "publishedAt": "2026-09-08T00:00:00.000Z",
+  "generation": 0,
+  "source": "bundled-default",
+  "best": {
+    "genome": {
+      "foodBuffer": 6,
+      "gardenCapacity": 8,
+      "farmThreshold": 90,
+      "marketThreshold": 220,
+      "clinicThreshold": 260,
+      "maternityThreshold": 380,
+      "housingThreshold": 240,
+      "birthTarget": 12,
+      "comfortReserve": 120,
+      "sellRatio": 0.35
+    },
+    "result": {
+      "fitness": 0,
+      "days": 0,
+      "population": 6,
+      "births": 0,
+      "deaths": 0,
+      "starvationDeaths": 0,
+      "satisfaction": 50,
+      "money": 0
+    }
+  }
+}

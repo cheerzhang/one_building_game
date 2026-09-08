@@ -30,15 +30,16 @@
     </section>
     <main>
       <section id="view-building" class="view active">
-        <div class="view-title"><div><h2>大楼</h2><p>从第一层开始，一层层向上建造。</p></div><button id="goBuild" type="button">＋ 建造</button></div>
+        <div class="view-title"><div><h2>大楼</h2><p>从第一层开始，一层层向上建造。</p></div><div class="home-actions"><button id="quickAI" class="ai-home-button" type="button">AI 托管</button><button id="goBuild" type="button">＋ 建造</button></div></div>
         <div id="towerShell" class="tower-shell disaster-snow"><div class="disaster-sky" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><div id="disasterLabel" class="disaster-label">外部环境 · 永久暴雪</div><div id="tower" class="tower"></div><div class="ground">隔离地基</div></div>
       </section>
       <section id="view-build" class="view"><div class="view-title"><div><h2>建造房间</h2><p>新房间会自动建在大楼顶部。</p></div></div><div id="categoryTabs" class="category-tabs"></div><div id="roomCatalog" class="room-catalog"></div></section>
       <section id="view-tasks" class="view"><div class="view-title"><div><h2>运营状态</h2><p>查看居民状态和各类房间的供给能力。</p></div></div><div id="taskList" class="task-list"></div></section>
       <section id="view-status" class="view"><div class="view-title"><div><h2>游戏总览</h2><p>资金、风险、人口与资源，一页看清。</p></div></div><div id="overview" class="overview"></div><div class="version-card">游戏更新到 <b id="currentVersion">读取中…</b> 版本</div><button id="resetGame" class="reset-button" type="button">重新开始游戏</button></section>
+      <section id="view-ai" class="view"><div class="view-title"><div><h2>AI 本地训练</h2><p>让AI学习维持人口、生活质量与经济。</p></div><span class="ai-local-badge">仅本地</span></div><div id="aiTrainingPanel" class="ai-training-panel"></div></section>
     </main>
     <nav>
-      <button class="active" data-view="building" type="button"><b>▥</b><span>大楼</span></button><button data-view="build" type="button"><b>＋</b><span>建造</span></button><button data-view="tasks" type="button"><b>◎</b><span>运营</span></button><button data-view="status" type="button"><b>≡</b><span>总览</span></button>
+      <button class="active" data-view="building" type="button"><b>▥</b><span>大楼</span></button><button data-view="build" type="button"><b>＋</b><span>建造</span></button><button data-view="tasks" type="button"><b>◎</b><span>运营</span></button><button data-view="status" type="button"><b>≡</b><span>总览</span></button><button data-view="ai" type="button"><b>AI</b><span>训练</span></button>
     </nav>
   </div>
   <div id="backdrop" class="backdrop"></div>
@@ -48,6 +49,7 @@
   <div id="celebration" class="celebration" aria-live="polite"><div id="celebrationConfetti" class="celebration-confetti"></div><strong id="celebrationTitle"></strong></div>
   <section id="deathNotice" class="death-notice" role="dialog" aria-modal="true" aria-labelledby="deathNoticeTitle" hidden><small>居民告示</small><h2 id="deathNoticeTitle">居民去世</h2><div id="deathNoticeSprite" class="big-sprite"></div><p id="deathNoticeSummary"></p><dl><div><dt>人物</dt><dd id="deathNoticeName"></dd></div><div><dt>情况</dt><dd id="deathNoticeSituation"></dd></div><div><dt>死因</dt><dd id="deathNoticeCause"></dd></div></dl><button id="confirmDeath" type="button">确定</button></section>
   <section id="inheritanceNotice" class="death-notice inheritance-notice" role="dialog" aria-modal="true" aria-labelledby="inheritanceTitle" hidden><small>住宅遗产处理</small><h2 id="inheritanceTitle">继承私人住宅</h2><p id="inheritanceSummary"></p><dl><div><dt>住宅</dt><dd id="inheritanceHome"></dd></div><div><dt>当前决定人</dt><dd id="inheritanceHeir"></dd></div><div><dt>遗产税</dt><dd id="inheritanceTax"></dd></div></dl><div class="inheritance-actions"><button id="inheritHome" type="button">支付遗产税并继承</button><button id="passInheritance" type="button">让下一位子女决定</button><button id="sellInheritedHome" type="button">出售住宅</button></div></section>
+  <section id="gameOverNotice" class="death-notice" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle" hidden><small>本局结束</small><h2 id="gameOverTitle">所有居民已经去世</h2><p id="gameOverSummary"></p><dl><div><dt>延续时间</dt><dd id="gameOverTime"></dd></div><div><dt>最终大楼</dt><dd id="gameOverBuilding"></dd></div></dl><div class="inheritance-actions"><button id="viewAITraining" type="button">查看AI训练</button><button id="restartAfterGameOver" type="button">重新开始游戏</button></div></section>
   <aside id="updateNotice" class="update-notice" hidden><span id="updateText">发现新版本</span><button id="updateButton" type="button">立即更新</button></aside>
   <script src="boot.js?v=0.15.2"></script>
 </body>

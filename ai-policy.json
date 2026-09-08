@@ -1,30 +1,30 @@
 {
   "version": 1,
-  "publishedAt": "2026-09-08T13:57:22.120Z",
-  "generation": 6360,
+  "publishedAt": "2026-09-08T17:46:30.318Z",
+  "generation": 373,
   "source": "local-evolution-training",
   "best": {
     "genome": {
-      "foodBuffer": 11,
-      "gardenCapacity": 6,
-      "farmThreshold": 3,
-      "marketThreshold": 49,
-      "clinicThreshold": 15,
-      "maternityThreshold": 3091,
-      "housingThreshold": 5,
-      "birthTarget": 11,
-      "comfortReserve": 26,
-      "sellRatio": 0.8865392766533158
+      "foodBuffer": 10,
+      "gardenCapacity": 15,
+      "farmThreshold": 160,
+      "marketThreshold": 72,
+      "clinicThreshold": 229,
+      "maternityThreshold": 1200,
+      "housingThreshold": 242,
+      "birthTarget": 20,
+      "comfortReserve": 439,
+      "sellRatio": 0.38618658937943534
     },
     "result": {
-      "fitness": 203581656.7275572,
-      "days": 2024.6666666666667,
-      "population": 0.3333333333333333,
+      "fitness": 187173583.18836603,
+      "days": 1860.6666666666667,
+      "population": 0.6666666666666666,
       "births": 5,
-      "deaths": 10.666666666666666,
+      "deaths": 10.333333333333334,
       "starvationDeaths": 0,
-      "satisfaction": 96.9006089056544,
-      "money": 42671.36820919498
+      "satisfaction": 96.83188366012583,
+      "money": 34863.9445301854
     }
   }
 }

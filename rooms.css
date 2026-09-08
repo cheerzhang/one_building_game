@@ -527,11 +527,14 @@
 .ai-policy-grid small,.ai-policy-grid b { display:block; }
 .ai-policy-grid small { color:#777; font-size:7px; }
 .ai-policy-grid b { margin-top:2px; font-size:8px; }
-.ai-log { max-height:280px; overflow:auto; }
-.ai-log p { display:grid; grid-template-columns:50px 1fr; gap:7px; margin:0; padding:7px 9px; border-bottom:1px solid #ccc; font-size:8px; line-height:1.4; }
+.ai-log { overflow:visible; }
+.ai-log p { display:grid; grid-template-columns:62px 1fr; gap:7px; margin:0; padding:8px 9px; border-bottom:1px solid #ccc; font-size:8px; line-height:1.4; }
 .ai-log p:last-child { border-bottom:0; }
 .ai-log time { color:#777; font-family:ui-monospace,monospace; }
 .ai-empty { display:block!important; padding:18px!important; color:#888; text-align:center; }
+.ai-log-card h3 { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.ai-log-card h3 small { color:#777; font-size:7px; font-weight:700; }
+#view-ai { padding-bottom:calc(100px + env(safe-area-inset-bottom)); }
 nav { grid-template-columns:repeat(5,1fr); }
 .floor-move-controls { position: absolute; z-index: 8; left: 3px; top: 31px; display: grid; gap: 2px; }
 .floor-move-controls button { width: 23px; height: 23px; padding: 0; border: 2px solid #111; background: #fff; font: 900 9px/1 ui-monospace, monospace; box-shadow: 1px 1px 0 #111; }

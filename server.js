@@ -6,9 +6,7 @@ const root=__dirname;
 const port=Number(process.env.PORT)||3000;
 const policyPath=path.join(root,'ai-policy.json');
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webmanifest':'application/manifest+json; charset=utf-8'};
-const policyKeys=['foodBuffer','childFoodBuffer','gardenCapacity','foodExpansionSatiety','foodWorkerTarget','foodTrainingThreshold','workforceReserve','workforceTrainingThreshold','educationBudgetThreshold','universityBudgetThreshold','teacherTrainingThreshold','serviceSatisfactionTarget','clothingBudgetThreshold','bookBudgetThreshold','bookCashReserve','rentalBudgetThreshold','housingTierBias','retirementTrainingAge','maxConcurrentTrainees','farmThreshold','marketThreshold','clinicThreshold','maternityThreshold','maternityLeadDays','medicalTrainingThreshold','parkThreshold','housingThreshold','familyPriorityAge','birthTarget','comfortReserve','familyCashReserve','sellRatio','mayorRotationCycles'];
-
-function validPolicy(policy){return policy&&policy.version===1&&policy.trainingVersion===20&&policy.best&&policy.best.genome&&policyKeys.every(key=>Number.isFinite(policy.best.genome[key]))}
+function validPolicy(policy){const network=policy?.best?.policy;return Boolean(policy&&policy.version===2&&policy.trainingVersion===21&&network?.format==='action-network-v1'&&network.features===24&&network.hidden===16&&Array.isArray(network.actions)&&network.actions.length===29&&Array.isArray(network.weights)&&network.weights.length===893&&network.weights.every(Number.isFinite))}
 function reply(response,status,body,type='application/json; charset=utf-8'){response.writeHead(status,{'Content-Type':type,'Cache-Control':'no-store'});response.end(body)}
 
 http.createServer((request,response)=>{

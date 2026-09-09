@@ -1,30 +1,39 @@
 {
   "version": 1,
-  "publishedAt": "2026-09-08T17:46:30.318Z",
-  "generation": 373,
+  "trainingVersion": 9,
+  "publishedAt": "2026-09-09T07:34:14.159Z",
+  "generation": 1126,
   "source": "local-evolution-training",
   "best": {
     "genome": {
-      "foodBuffer": 10,
-      "gardenCapacity": 15,
-      "farmThreshold": 160,
-      "marketThreshold": 72,
-      "clinicThreshold": 229,
-      "maternityThreshold": 1200,
-      "housingThreshold": 242,
-      "birthTarget": 20,
-      "comfortReserve": 439,
-      "sellRatio": 0.38618658937943534
+      "foodBuffer": 12,
+      "childFoodBuffer": 8,
+      "gardenCapacity": 12,
+      "foodExpansionSatiety": 46,
+      "farmThreshold": 15,
+      "marketThreshold": 82,
+      "clinicThreshold": 173,
+      "maternityThreshold": 482,
+      "maternityLeadDays": 9,
+      "medicalTrainingThreshold": 214,
+      "parkThreshold": 317,
+      "housingThreshold": 436,
+      "familyPriorityAge": 24,
+      "birthTarget": 9,
+      "comfortReserve": 155,
+      "familyCashReserve": 4,
+      "sellRatio": 0.05,
+      "mayorRotationCycles": 4
     },
     "result": {
-      "fitness": 187173583.18836603,
-      "days": 1860.6666666666667,
-      "population": 0.6666666666666666,
-      "births": 5,
-      "deaths": 10.333333333333334,
-      "starvationDeaths": 0,
-      "satisfaction": 96.83188366012583,
-      "money": 34863.9445301854
+      "fitness": -489219101.3755393,
+      "days": 886.3333333333334,
+      "population": 0,
+      "births": 1,
+      "deaths": 7,
+      "starvationDeaths": 3.3333333333333335,
+      "satisfaction": 95.65291127327662,
+      "money": 105995.87468513427
     }
   }
 }

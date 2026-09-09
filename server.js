@@ -8,7 +8,7 @@ const policyPath=path.join(root,'ai-policy.json');
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webmanifest':'application/manifest+json; charset=utf-8'};
 const policyKeys=['foodBuffer','childFoodBuffer','gardenCapacity','foodExpansionSatiety','foodWorkerTarget','foodTrainingThreshold','workforceReserve','workforceTrainingThreshold','educationBudgetThreshold','universityBudgetThreshold','teacherTrainingThreshold','serviceSatisfactionTarget','clothingBudgetThreshold','bookBudgetThreshold','bookCashReserve','rentalBudgetThreshold','housingTierBias','retirementTrainingAge','maxConcurrentTrainees','farmThreshold','marketThreshold','clinicThreshold','maternityThreshold','maternityLeadDays','medicalTrainingThreshold','parkThreshold','housingThreshold','familyPriorityAge','birthTarget','comfortReserve','familyCashReserve','sellRatio','mayorRotationCycles'];
 
-function validPolicy(policy){return policy&&policy.version===1&&policy.trainingVersion===18&&policy.best&&policy.best.genome&&policyKeys.every(key=>Number.isFinite(policy.best.genome[key]))}
+function validPolicy(policy){return policy&&policy.version===1&&policy.trainingVersion===20&&policy.best&&policy.best.genome&&policyKeys.every(key=>Number.isFinite(policy.best.genome[key]))}
 function reply(response,status,body,type='application/json; charset=utf-8'){response.writeHead(status,{'Content-Type':type,'Cache-Control':'no-store'});response.end(body)}
 
 http.createServer((request,response)=>{

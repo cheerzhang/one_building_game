@@ -27,12 +27,17 @@
   roomStyle.href=`rooms.css?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
   document.head.appendChild(roomStyle);
 
-  const learning=document.createElement('script');
-  learning.src=`learning-ai.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
-  learning.onload=()=>{
+  const rules=document.createElement('script');
+  rules.src=`game-rules.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
+  rules.onload=()=>{
+    const learning=document.createElement('script');
+    learning.src=`learning-ai.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
+    learning.onload=()=>{
     const app=document.createElement('script');
     app.src=`app.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
     document.body.appendChild(app);
+    };
+    document.body.appendChild(learning);
   };
-  document.body.appendChild(learning);
+  document.body.appendChild(rules);
 })();

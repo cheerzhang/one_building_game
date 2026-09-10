@@ -1,4 +1,4 @@
-importScripts('learning-ai.js');
+importScripts('game-rules.js','learning-ai.js');
 self.onmessage=event=>{
   const {id,policy,seeds,horizon}=event.data||{};
   try{

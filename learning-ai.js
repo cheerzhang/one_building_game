@@ -1,6 +1,6 @@
 (function(global){
   'use strict';
-  const VERSION=28,FEATURES=24,HIDDEN=16,SKILLS=['食品','物流','技术','艺术','服务','科研'];
+  const VERSION=29,FEATURES=24,HIDDEN=16,SKILLS=['食品','物流','技术','艺术','服务','科研'];
   const ACTIONS=['wait','buildGarden','buildFarm','buildMarket','buildClinic','buildMaternity','buildPark','buildRental','buildOldApartment','buildApartment','buildVilla','buildPrimary','buildMiddle','buildSchool','buildUniversity','buildClothing','buildBarber','buildGame','buildBookstore','buildTourism','buildCraft','assignJob','setMayor','marry','conceive','deliver','setFood','buyHome','moveRental','study','teach','buyClothes','haircut','play','buyBook','useBook','travel','setReserve','setMarketProduct'];
   const WEIGHTS=FEATURES*HIDDEN+HIDDEN+ACTIONS.length*HIDDEN+ACTIONS.length;
   function seeded(seed){let x=seed>>>0;return()=>((x=(x*1664525+1013904223)>>>0)/4294967296)}

@@ -6,7 +6,7 @@ const root=__dirname;
 const port=Number(process.env.PORT)||3000;
 const policyPath=path.join(root,'ai-policy.json');
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webmanifest':'application/manifest+json; charset=utf-8'};
-function validPolicy(policy){const network=policy?.best?.policy;return Boolean(policy&&policy.version===2&&policy.trainingVersion===25&&network?.format==='action-network-v1'&&network.features===24&&network.hidden===16&&Array.isArray(network.actions)&&network.actions.length===39&&Array.isArray(network.weights)&&network.weights.length===1063&&network.weights.every(Number.isFinite))}
+function validPolicy(policy){const network=policy?.best?.policy;return Boolean(policy&&policy.version===2&&policy.trainingVersion===26&&network?.format==='action-network-v1'&&network.features===24&&network.hidden===16&&Array.isArray(network.actions)&&network.actions.length===39&&Array.isArray(network.weights)&&network.weights.length===1063&&network.weights.every(Number.isFinite))}
 function reply(response,status,body,type='application/json; charset=utf-8'){response.writeHead(status,{'Content-Type':type,'Cache-Control':'no-store'});response.end(body)}
 
 http.createServer((request,response)=>{

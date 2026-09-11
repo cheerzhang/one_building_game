@@ -30,14 +30,19 @@
   const rules=document.createElement('script');
   rules.src=`game-rules.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
   rules.onload=()=>{
-    const learning=document.createElement('script');
-    learning.src=`learning-ai.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
-    learning.onload=()=>{
-    const app=document.createElement('script');
-    app.src=`app.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
-    document.body.appendChild(app);
+    const engine=document.createElement('script');
+    engine.src=`game-engine.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
+    engine.onload=()=>{
+      const learning=document.createElement('script');
+      learning.src=`learning-ai.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
+      learning.onload=()=>{
+        const app=document.createElement('script');
+        app.src=`app.js?v=${encodeURIComponent(version)}&boot=${bootStamp}`;
+        document.body.appendChild(app);
+      };
+      document.body.appendChild(learning);
     };
-    document.body.appendChild(learning);
+    document.body.appendChild(engine);
   };
   document.body.appendChild(rules);
 })();

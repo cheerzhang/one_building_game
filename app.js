@@ -1,5 +1,5 @@
 (function(){
-  const RULES=window.BuildingGameRules;
+  const RULES=window.BuildingGameRules,ENGINE=window.BuildingGameEngine;
   const VERSION=window.BUILD_VERSION||'unknown',SAVE_KEY='one-building-game-v1',CYCLE_MS=20000,GARDEN_HARVEST_MS=15000,CITYHALL_MS=30000,GARDEN_MS=60000,PRIMARY_MS=60000,DAY_MS=300000,PREGNANCY_DAYS=9,PREGNANCY_MS=DAY_MS*PREGNANCY_DAYS,DAYS_PER_YEAR=12,CLINIC_MS=60000,CLINIC_DAILY_WAGE=10,MATERNITY_DAILY_WAGE=15,PRIMARY_DAILY_FEE=10,VEGETABLE_PRICE=.1,MEAT_PRICE=.3,MILK_PRICE=1,CANNED_PRICE=.5,CANNED_MEAT_PRICE=1,CLOTHING_PRICE=10,BOOK_PRICE=100,BOOK_CERT_CHANCE=.35,BARBER_MALE_PRICE=5,BARBER_FEMALE_PRICE=10,MEAL_TIMES=[6,12,20],MILK_TIMES=[6,20];
   const SKILLS=RULES.SKILLS;
   const TRAVEL_DESTINATIONS={europe:{name:'欧美',price:100,satisfaction:10},asia:{name:'东南亚',price:80,satisfaction:8},africa:{name:'非洲',price:50,satisfaction:5},cruise:{name:'邮轮巡航',price:20,satisfaction:0}};
@@ -274,9 +274,9 @@
     let changed=false;
     state.people.forEach(person=>{if(person.spouseId&&!residentById(person.spouseId)){person.spouseId=null;changed=true}});
     state.floors.filter(floor=>floor.type==='park').forEach(garden=>{
-      const visitors=garden.workerIds.map(residentById).filter(Boolean),singleMen=visitors.filter(person=>person.age>=18&&person.gender==='男'&&!person.spouseId&&person.satisfaction>=100),singleWomen=visitors.filter(person=>person.age>=18&&person.gender==='女'&&!person.spouseId&&person.satisfaction>=100);
-      while(singleMen.length&&singleWomen.length){const husband=singleMen.shift(),wife=singleWomen.shift();husband.spouseId=wife.id;wife.spouseId=husband.id;shareMarriageHomeOwnership(husband,wife);changed=true;toast(`${husband.name} 和 ${wife.name} 结婚了，双方名下私人住宅已登记为共同产权！`)}
-      visitors.filter(person=>person.gender==='女'&&isFertileAge(person)&&person.spouseId&&!person.pregnancy&&person.satisfaction>=100).forEach(wife=>{const husband=residentById(wife.spouseId),home=sharedPrivateHome(wife,husband);if(!isFertileAge(husband)||husband.satisfaction<100||!garden.workerIds.includes(husband.id))return;if(!home||home.residents.length>=housingCapacity(home))return;wife.pregnancy={fatherId:husband.id,dueAt:now+PREGNANCY_MS,deliveryWarned:false,laborWarned:false};changed=true;toast(`${wife.name} 怀孕了，预计 9 天后生产`);celebrate(state.people.map(person=>person.id),'新生命即将到来！')});
+      const visitors=garden.workerIds.map(residentById).filter(Boolean),singleMen=visitors.filter(person=>person.gender==='男'&&!person.spouseId),singleWomen=visitors.filter(person=>person.gender==='女'&&!person.spouseId);
+      for(const wife of singleWomen){const husband=singleMen.find(person=>!person.spouseId&&ENGINE.canMarry(state,person,wife,garden));if(!husband)continue;husband.spouseId=wife.id;wife.spouseId=husband.id;shareMarriageHomeOwnership(husband,wife);changed=true;toast(`${husband.name} 和 ${wife.name} 结婚了，双方名下私人住宅已登记为共同产权！`)}
+      visitors.filter(person=>person.gender==='女'&&person.spouseId&&!person.pregnancy).forEach(wife=>{const husband=residentById(wife.spouseId);if(!ENGINE.canConceive(state,wife,husband,garden))return;wife.pregnancy={fatherId:husband.id,dueAt:now+PREGNANCY_MS,deliveryWarned:false,laborWarned:false};changed=true;toast(`${wife.name} 怀孕了，预计 9 天后生产`);celebrate(state.people.map(person=>person.id),'新生命即将到来！')});
     });
     return changed;
   }

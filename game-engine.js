@@ -1,0 +1,19 @@
+(function(global){
+  'use strict';
+  const RULES=global.BuildingGameRules;
+  if(!RULES)throw Error('game-rules.js must load before game-engine.js');
+  const byId=(state,id)=>(state.people||[]).find(person=>person.id===id);
+  const floorById=(state,id)=>(state.floors||[]).find(floor=>floor.id===id);
+  const parentIds=person=>person?.parentIds||[person?.fatherId,person?.motherId].filter(Boolean);
+  function ancestorIds(state,person,depth=4,found=new Set()){if(!person||depth<=0)return found;for(const id of parentIds(person)){if(found.has(id))continue;found.add(id);ancestorIds(state,byId(state,id),depth-1,found)}return found}
+  function related(state,a,b){if(!a||!b||a.id===b.id)return true;const aa=ancestorIds(state,a),bb=ancestorIds(state,b);return aa.has(b.id)||bb.has(a.id)||[...aa].some(id=>bb.has(id))}
+  function homeOwners(floor){return[floor?.ownerId,...(floor?.coOwnerIds||[])].filter(Boolean)}
+  function privateHomeOf(state,a,b){return(state.floors||[]).find(floor=>RULES.ROOMS[floor.type]?.privateHome&&homeOwners(floor).includes(a?.id)&&homeOwners(floor).includes(b?.id))}
+  function canMarry(state,a,b,park){return Boolean(a&&b&&park?.type==='park'&&(park.workerIds||[]).includes(a.id)&&(park.workerIds||[]).includes(b.id)&&a.gender!==b.gender&&!a.spouseId&&!b.spouseId&&!a.sick&&!b.sick&&a.age>=18&&b.age>=18&&a.satisfaction>=100&&b.satisfaction>=100&&!related(state,a,b))}
+  function canConceive(state,mother,father,park){if(!mother||!father||mother.gender!=='女'||father.gender!=='男'||mother.spouseId!==father.id||father.spouseId!==mother.id||mother.pregnancy)return false;if(mother.age<20||mother.age>40||father.age<20||father.age>40||mother.satisfaction<100||father.satisfaction<100)return false;if(!park||!(park.workerIds||[]).includes(mother.id)||!(park.workerIds||[]).includes(father.id))return false;const home=privateHomeOf(state,mother,father);return Boolean(home&&(home.residents||[]).length<RULES.housingCapacity(home.type))}
+  function qualifiedMaternity(state,floor){return floor?.type==='maternity'&&(floor.workerIds||[]).some(id=>RULES.canWork(byId(state,id),'maternity'))}
+  function canDeliver(state,mother,now){if(!mother?.pregnancy||now<mother.pregnancy.dueAt||now>mother.pregnancy.dueAt+(state.dayMs||300000)*2)return null;const father=byId(state,mother.pregnancy.fatherId),home=privateHomeOf(state,mother,father),room=(state.floors||[]).find(floor=>qualifiedMaternity(state,floor)&&(floor.maternityFamilyIds||[]).includes(mother.id)&&(floor.maternityFamilyIds||[]).includes(father?.id));return father&&home&&(home.residents||[]).length<RULES.housingCapacity(home.type)&&room?{father,home,room}:null}
+  function isAssigned(state,person){return Boolean((state.floors||[]).find(room=>(room.workerIds||[]).includes(person.id)||room.teacherId===person.id||room.mayorId===person.id))}
+  function legal(state,action,now=state.now||0){const person=byId(state,action.personId),target=byId(state,action.targetId),floor=floorById(state,action.floorId);if(action.type==='assignWorker')return Boolean(person&&floor&&RULES.canWork(person,floor.type)&&(floor.workerIds||[]).length<RULES.roomCapacity(floor.type));if(action.type==='setMayor')return Boolean(person&&person.age>16&&!person.sick&&floor?.type==='cityhall');if(action.type==='marry')return canMarry(state,person,target,floor);if(action.type==='conceive')return canConceive(state,person,target,floor);if(action.type==='deliver')return Boolean(canDeliver(state,person,now));if(action.type==='buildRoom')return Number(state.money||0)>=RULES.roomCost(action.roomType)&&RULES.canAddStaffedRoom(action.roomType,state.floors,state.people,p=>isAssigned(state,p));return false}
+  global.BuildingGameEngine={byId,floorById,parentIds,ancestorIds,related,homeOwners,privateHomeOf,canMarry,canConceive,qualifiedMaternity,canDeliver,isAssigned,legal};
+})(globalThis);

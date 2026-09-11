@@ -2,9 +2,11 @@
 const assert=require('assert');
 const fs=require('fs');
 require('./game-rules.js');
+require('./game-engine.js');
 require('./learning-ai.js');
 
 const rules=global.BuildingGameRules,ai=global.BuildingLearningAI;
+const engine=global.BuildingGameEngine;
 const person=(skills={},extra={})=>({age:30,sick:false,deathPending:false,skills:{食品:1,物流:1,技术:1,艺术:1,服务:1,科研:1,...skills},...extra});
 
 assert.equal(rules.roomCost('garden'),6);
@@ -38,6 +40,12 @@ assert.equal(familyVector.length,48);
 assert.notDeepEqual(gardenVector,marketVector,'网络必须能区分菜园与超市岗位');
 assert.notDeepEqual(gardenVector,mayorVector,'网络必须能区分岗位与市长动作');
 assert.equal(ai.WEIGHTS,1447);
+
+const father={id:'f',gender:'男',age:30,satisfaction:100,skills:{},spouseId:null},mother={id:'m',gender:'女',age:30,satisfaction:100,skills:{},spouseId:null};
+const park={id:'park',type:'park',workerIds:['f','m']},familyState={people:[father,mother],floors:[park],money:0};
+assert.equal(engine.canMarry(familyState,father,mother,park),true);
+mother.parentIds=['f'];
+assert.equal(engine.canMarry(familyState,father,mother,park),false,'真人与训练必须共用近亲婚配禁令');
 
 const liveSource=fs.readFileSync(require.resolve('./app.js'),'utf8');
 assert.match(liveSource,/RULES\.canWork\(person,floor\.type/,'真实游戏必须使用共享入职规则');

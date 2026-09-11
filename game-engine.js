@@ -33,5 +33,8 @@
     return events;
   }
   function advanceTimeline(state,now,options={}){state.dayMs=state.dayMs||300000;state.daysPerYear=state.daysPerYear||12;state.clinicMs=state.clinicMs||60000;return[...advanceLife(state,now,options),...advancePregnancies(state,now)]}
-  global.BuildingGameEngine={byId,floorById,parentIds,ancestorIds,related,homeOwners,privateHomeOf,canMarry,canConceive,qualifiedMaternity,canDeliver,isAssigned,legal,removeAssignments,clinicFor,advanceLife,advancePregnancies,advanceTimeline};
+  function cloneState(state){return typeof structuredClone==='function'?structuredClone(state):JSON.parse(JSON.stringify(state))}
+  function stable(value){if(Array.isArray(value))return value.map(stable);if(value&&typeof value==='object')return Object.fromEntries(Object.keys(value).sort().map(key=>[key,stable(value[key])]));return value}
+  function stateHash(state){const text=JSON.stringify(stable(state));let hash=2166136261;for(let index=0;index<text.length;index++){hash^=text.charCodeAt(index);hash=Math.imul(hash,16777619)}return(hash>>>0).toString(16).padStart(8,'0')}
+  global.BuildingGameEngine={byId,floorById,parentIds,ancestorIds,related,homeOwners,privateHomeOf,canMarry,canConceive,qualifiedMaternity,canDeliver,isAssigned,legal,removeAssignments,clinicFor,advanceLife,advancePregnancies,advanceTimeline,cloneState,stateHash};
 })(globalThis);

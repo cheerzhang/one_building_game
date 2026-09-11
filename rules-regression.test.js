@@ -3,9 +3,8 @@ const assert=require('assert');
 const fs=require('fs');
 require('./game-rules.js');
 require('./game-engine.js');
-require('./learning-ai.js');
 
-const rules=global.BuildingGameRules,ai=global.BuildingLearningAI;
+const rules=global.BuildingGameRules;
 const engine=global.BuildingGameEngine;
 const person=(skills={},extra={})=>({age:30,sick:false,deathPending:false,skills:{食品:1,物流:1,技术:1,艺术:1,服务:1,科研:1,...skills},...extra});
 
@@ -30,17 +29,6 @@ assert.equal(rules.canAddStaffedRoom('garden',fullGarden,[cook],()=>false),true,
 const income=rules.cityHallIncome(6,50,true,1);
 assert.deepEqual(income,{base:3,total:6,mayor:.6,building:5.4});
 
-const state={people:[cook,doctor],money:10,food:5,satisfaction:50,mayorId:1};
-const gardenVector=ai.vector(state,cook,null,{roomType:'garden',job:'garden'});
-const marketVector=ai.vector(state,cook,null,{roomType:'market',job:'market'});
-const mayorVector=ai.vector(state,cook,null,{roomType:'cityhall'});
-const familyVector=ai.vector(state,{...cook,gender:'女'}, {...doctor,gender:'男',money:250},{familyChildren:2,homeSpace:.5,related:false});
-assert.equal(gardenVector.length,ai.FEATURES);
-assert.equal(familyVector.length,48);
-assert.notDeepEqual(gardenVector,marketVector,'网络必须能区分菜园与超市岗位');
-assert.notDeepEqual(gardenVector,mayorVector,'网络必须能区分岗位与市长动作');
-assert.equal(ai.WEIGHTS,1481);
-
 const father={id:'f',gender:'男',age:30,satisfaction:100,skills:{},spouseId:null},mother={id:'m',gender:'女',age:30,satisfaction:100,skills:{},spouseId:null};
 const park={id:'park',type:'park',workerIds:['f','m']},familyState={people:[father,mother],floors:[park],money:0};
 assert.equal(engine.canMarry(familyState,father,mother,park),true);
@@ -58,11 +46,17 @@ const elder={id:'elder',age:99,gender:'男',satiety:100,sick:false,deathPending:
 engine.advanceTimeline(aging,1200,{rand:()=>1});
 assert.equal(elder.age,100);
 assert.equal(elder.deathCause,'年老');
+const cloned=engine.cloneState(aging);
+assert.notEqual(cloned,aging);
+assert.equal(engine.stateHash(cloned),engine.stateHash(aging),'相同状态必须产生相同哈希');
+cloned.people[0].age=99;
+assert.notEqual(engine.stateHash(cloned),engine.stateHash(aging),'任何状态差异都必须被一致性校验发现');
 
 const liveSource=fs.readFileSync(require.resolve('./app.js'),'utf8');
 assert.match(liveSource,/RULES\.canWork\(person,floor\.type/,'真实游戏必须使用共享入职规则');
 assert.match(liveSource,/RULES\.cityHallIncome/,'真实游戏必须使用共享市政厅收入规则');
-assert.match(liveSource,/canUseAnotherRoom\(type\)/,'AI接管必须执行有员工才扩建的合法动作遮罩');
-assert.match(liveSource,/roomType:floor\.type,job:floor\.type/,'真实接管网络必须看见岗位类型');
+assert.match(liveSource,/ENGINE\.advanceTimeline\(state,Date\.now\(\)\)/,'真人时间线必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.canMarry\(state,person,wife,garden\)/,'真人婚姻判定必须直接调用共享引擎');
+assert.doesNotMatch(liveSource,/aiSimulate|aiRunGeneration|aiRandomGenome|v24Evaluate/,'主程序不得残留旧AI模拟器');
 
 console.log('shared rules regression: ok');

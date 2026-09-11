@@ -69,13 +69,63 @@ engine.advanceProduction(productionB,60001);
 assert.equal(engine.stateHash(productionA),engine.stateHash(productionB),'房间生产链在页面与无界面运行中必须完全确定一致');
 assert.ok(productionA.floors[2].stock.cannedVegetables>0,'超市必须使用菜园专供库存生产罐头');
 
+const eater={id:'eater',age:30,money:2,satiety:40,satisfaction:50,foodPreference:'auto',lastMealSlot:0,skills:{}},foodState={money:0,people:[eater],floors:[{id:'food-market',type:'market',workerIds:[],stock:{cannedMeat:1,cannedVegetables:1},cannedMeatSources:[]}]};
+const meal=engine.reserveMeal(foodState,eater,0);
+assert.equal(meal.item,'cannedMeat','自动饮食必须优先选择肉罐头');
+assert.equal(eater.satiety,30,'每次进食前必须先扣除10点饱腹');
+engine.consumeReserved(foodState,meal);
+assert.equal(eater.satiety,60,'肉罐头必须增加30点饱腹');
+assert.equal(eater.money,1,'购买肉罐头必须扣除个人资产');
+
+const customer={id:'customer',age:30,gender:'女',money:50,satisfaction:40,travelMonth:9,travelDestination:'cruise',lastTravelYear:0,skills:{}},staff={id:'staff',age:30,gender:'男',money:0,satisfaction:50,skills:{}},services={createdAt:0,dayMs:100,daysPerYear:12,money:0,people:[customer,staff],floors:[{id:'barber',type:'barber',barberId:'staff',barberQueue:[],currentClientId:'customer',barberStartedAt:1,workerIds:[]},{id:'game',type:'game',workerIds:['staff'],playerIds:['customer'],gameStartedAt:{customer:1}},{id:'tour',type:'tourism',workerIds:['staff']}]};
+const serviceEvents=engine.advanceServices(services,20001);
+assert.ok(serviceEvents.some(event=>event.type==='haircutComplete'));
+assert.ok(serviceEvents.some(event=>event.type==='gameComplete'));
+assert.ok(serviceEvents.some(event=>event.type==='travelComplete'));
+assert.equal(customer.satisfaction,55,'理发与游戏房必须分别增加5和10满意度');
+
+const rider={id:'rider',age:30,money:0,satiety:20,satisfaction:50,skills:{}},liftState={people:[rider],floors:[]},lift={floor:0,queue:[{personId:'rider',originFloor:0,foodFloor:2,item:'vegetables',kind:'meal',paidAmount:0,direct:false}],onboard:[],eating:[],direction:0,doorUntil:0,trip:null};
+const liftStart=engine.advanceElevator(liftState,lift,0);
+assert.ok(liftStart.some(event=>event.type==='elevatorMove'));
+const liftArrival=engine.advanceElevator(liftState,lift,2000);
+assert.ok(liftArrival.some(event=>event.type==='mealConsumed'));
+assert.equal(rider.satiety,30,'电梯抵达用餐楼层后才增加饱腹');
+
+const primaryTeacher={id:'pt',age:35,education:'社区学校',sick:false,skills:{食品:10,物流:10,技术:10,艺术:10,服务:10,科研:10}},pupil={id:'pupil',age:10,education:'无',certificates:[],skills:{食品:3,物流:4,技术:4,艺术:4,服务:4,科研:4}},educationState={people:[primaryTeacher,pupil],floors:[{id:'primary-room',type:'primary',teacherId:'pt',studentIds:['pupil'],taughtSkill:'食品',schoolStartedAt:1}]};
+engine.advanceEducation(educationState,60001,{rand:()=>1});
+assert.equal(pupil.skills['食品'],4);
+assert.equal(pupil.education,'小学');
+assert.ok(pupil.certificates.includes('小学'),'小学全科达到4后必须获得毕业证');
+assert.equal(engine.canTeachUniversity({...primaryTeacher,skills:{...primaryTeacher.skills,艺术:12}},'食品'),true,'大学教师资格必须使用共享规则');
+
+const owner={id:'owner',age:30,spouseId:'partner',satisfaction:50},partner={id:'partner',age:30,spouseId:'owner',satisfaction:50},minor={id:'minor',age:8,parentIds:['owner','partner'],satisfaction:50},adultChild={id:'adult-child',age:18,parentIds:['owner','partner'],satisfaction:50},home={id:'home',type:'apartment',ownerId:'owner',coOwnerIds:[],residents:['owner','minor','adult-child']},housingState={people:[owner,partner,minor,adultChild],floors:[home]};
+engine.shareMarriageHomes(housingState,owner,partner);
+assert.ok(home.coOwnerIds.includes('partner'),'结婚后伴侣必须成为共同产权人');
+assert.equal(engine.canJoinHome(housingState,home,minor),true);
+engine.sanitizePrivateHomes(housingState);
+assert.ok(!home.residents.includes('adult-child'),'成年子女必须离开父母的私人住宅');
+
+const birthFather={id:'bf',gender:'男',age:30,spouseId:'bm',satisfaction:100,skills:{}},birthMother={id:'bm',gender:'女',age:30,spouseId:'bf',satisfaction:100,skills:{}},birthDoctor={id:'doctor',gender:'女',age:35,satisfaction:80,skills:{服务:6,科研:10}},birthHome={id:'birth-home',type:'oldApartment',ownerId:'bf',coOwnerIds:['bm'],residents:['bf','bm']},birthPark={id:'birth-park',type:'park',workerIds:['bf','bm']},birthRoom={id:'birth-room',type:'maternity',workerIds:['doctor'],maternityFamilyIds:['bf','bm']},birthState={dayMs:100,pregnancyDays:9,people:[birthFather,birthMother,birthDoctor],floors:[birthHome,birthPark,birthRoom]};
+assert.ok(engine.advanceRelationships(birthState,0).some(event=>event.type==='pregnant'));
+birthMother.pregnancy.dueAt=0;
+const born=engine.deliverBirths(birthState,0,()=>({id:'baby',age:0,parentIds:['bf','bm'],skills:{}}));
+assert.ok(born.some(event=>event.type==='born'));
+assert.ok(birthHome.residents.includes('baby'));
+
 const liveSource=fs.readFileSync(require.resolve('./app.js'),'utf8');
 assert.match(liveSource,/RULES\.canWork\(person,floor\.type/,'真实游戏必须使用共享入职规则');
 assert.match(liveSource,/RULES\.cityHallIncome/,'真实游戏必须使用共享市政厅收入规则');
 assert.match(liveSource,/ENGINE\.advanceTimeline\(state,Date\.now\(\)\)/,'真人时间线必须直接调用共享引擎');
-assert.match(liveSource,/ENGINE\.canMarry\(state,person,wife,garden\)/,'真人婚姻判定必须直接调用共享引擎');
 assert.match(liveSource,/ENGINE\.advanceDaily\(state,now\)/,'真人每日经济结算必须直接调用共享引擎');
 assert.match(liveSource,/ENGINE\.advanceProduction\(state,now\)/,'真人房间生产必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.reserveMeal\(state,person/,'真人饮食选择必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.advanceServices\(state,Date\.now\(\)\)/,'真人服务消费必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.advanceElevator\(state,elevator,now\)/,'真人电梯必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.advanceEducation\(state,Date\.now\(\)\)/,'真人教育进度必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.shareMarriageHomes\(state,first,second\)/,'真人共同产权必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.sanitizePrivateHomes\(state\)/,'真人住宅成员限制必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.advanceRelationships\(state,now\)/,'真人结婚与怀孕必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.deliverBirths\(state,now/,'真人生产必须直接调用共享引擎');
 assert.doesNotMatch(liveSource,/aiSimulate|aiRunGeneration|aiRandomGenome|v24Evaluate/,'主程序不得残留旧AI模拟器');
 
 console.log('shared rules regression: ok');

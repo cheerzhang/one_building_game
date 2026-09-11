@@ -8,6 +8,8 @@
     clothing:{cost:200,capacity:2,staffed:true,productionPerWorkerDay:5},bookstore:{cost:500,capacity:2,staffed:true,productionPerWorkerDay:1},school:{cost:100,capacity:3,staffed:true},primary:{cost:180,capacity:4,staffed:true},middle:{cost:160,capacity:4,staffed:true},university:{cost:300,capacity:4,staffed:true},barber:{cost:100,capacity:1,staffed:true}
   };
   const ECONOMY={vegetablePrice:.1,meatPrice:.3,milkPrice:1,cannedVegetablePrice:.5,cannedMeatPrice:1,clothingPrice:10,bookPrice:100,rentPerDay:3,gamePrice:20,cityCyclesPerDay:10,taxRate:.5};
+  const TRAVEL={europe:{name:'欧美',price:100,satisfaction:10},asia:{name:'东南亚',price:80,satisfaction:8},africa:{name:'非洲',price:50,satisfaction:5},cruise:{name:'邮轮巡航',price:20,satisfaction:0}};
+  const NAMES={surnames:['林','周','陈','陆','许','顾','沈','江','苏','叶','唐','程','赵','钱','孙','李','吴','郑','王','冯','韩','秦','白','宋','季','乔','段','袁','徐','陶','姜','谢','邵','余','杜','罗','高','梁','夏','魏'],given:{男:['川','野','远','舟','安','一','辰','泽','然','航','昊','宇','轩','朗','越','嘉','墨','言','景','修','鸣','屿','青','柏','星河','晨宇','子安','景川','云舟','明远','知行','亦辰','嘉树','望舒','清和'],女:['夏','禾','月','晴','宁','岚','秋','棠','悦','念','瑶','露','音','雪','竹','萤','微','舒','简','遥','芷','晚','溪','星','安然','星月','清欢','知夏','若宁','云舒','南枝','雨棠','书瑶','静姝','初晴']}};
   const skill=(person,name)=>Number(person?.skills?.[name]||0);
   function canWork(person,type){
     if(!person||person.age<=16||person.sick||person.deathPending)return false;
@@ -44,5 +46,5 @@
     if(type==='cityhall')return'government';
     return'other';
   }
-  global.BuildingGameRules={SKILLS,ROOMS,ECONOMY,skill,canWork,roomCost,roomCapacity,housingCapacity,canAffordFamily,canAddStaffedRoom,cityHallIncome,jobCategory};
+  global.BuildingGameRules={SKILLS,ROOMS,ECONOMY,TRAVEL,NAMES,skill,canWork,roomCost,roomCapacity,housingCapacity,canAffordFamily,canAddStaffedRoom,cityHallIncome,jobCategory};
 })(globalThis);

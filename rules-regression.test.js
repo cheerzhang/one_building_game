@@ -39,13 +39,25 @@ assert.equal(gardenVector.length,ai.FEATURES);
 assert.equal(familyVector.length,48);
 assert.notDeepEqual(gardenVector,marketVector,'网络必须能区分菜园与超市岗位');
 assert.notDeepEqual(gardenVector,mayorVector,'网络必须能区分岗位与市长动作');
-assert.equal(ai.WEIGHTS,1447);
+assert.equal(ai.WEIGHTS,1481);
 
 const father={id:'f',gender:'男',age:30,satisfaction:100,skills:{},spouseId:null},mother={id:'m',gender:'女',age:30,satisfaction:100,skills:{},spouseId:null};
 const park={id:'park',type:'park',workerIds:['f','m']},familyState={people:[father,mother],floors:[park],money:0};
 assert.equal(engine.canMarry(familyState,father,mother,park),true);
 mother.parentIds=['f'];
 assert.equal(engine.canMarry(familyState,father,mother,park),false,'真人与训练必须共用近亲婚配禁令');
+
+const starving={id:'hungry',age:25,gender:'女',satiety:0,satietyZeroSince:0,sick:false,deathPending:false,skills:{}},timeline={createdAt:0,dayMs:100,daysPerYear:12,clinicMs:20,ageYear:0,lastSicknessDay:0,people:[starving],floors:[]};
+engine.advanceTimeline(timeline,100,{rand:()=>1});
+assert.equal(starving.sickCause,'starvation');
+engine.advanceTimeline(timeline,300,{rand:()=>1});
+assert.equal(starving.deathPending,true);
+assert.equal(starving.deathCause,'饥饿');
+
+const elder={id:'elder',age:99,gender:'男',satiety:100,sick:false,deathPending:false,skills:{}},aging={createdAt:0,dayMs:100,daysPerYear:12,ageYear:0,lastSicknessDay:0,people:[elder],floors:[]};
+engine.advanceTimeline(aging,1200,{rand:()=>1});
+assert.equal(elder.age,100);
+assert.equal(elder.deathCause,'年老');
 
 const liveSource=fs.readFileSync(require.resolve('./app.js'),'utf8');
 assert.match(liveSource,/RULES\.canWork\(person,floor\.type/,'真实游戏必须使用共享入职规则');

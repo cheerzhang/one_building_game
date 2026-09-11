@@ -32,10 +32,12 @@ const state={people:[cook,doctor],money:10,food:5,satisfaction:50,mayorId:1};
 const gardenVector=ai.vector(state,cook,null,{roomType:'garden',job:'garden'});
 const marketVector=ai.vector(state,cook,null,{roomType:'market',job:'market'});
 const mayorVector=ai.vector(state,cook,null,{roomType:'cityhall'});
+const familyVector=ai.vector(state,{...cook,gender:'女'}, {...doctor,gender:'男',money:250},{familyChildren:2,homeSpace:.5,related:false});
 assert.equal(gardenVector.length,ai.FEATURES);
+assert.equal(familyVector.length,48);
 assert.notDeepEqual(gardenVector,marketVector,'网络必须能区分菜园与超市岗位');
 assert.notDeepEqual(gardenVector,mayorVector,'网络必须能区分岗位与市长动作');
-assert.equal(ai.WEIGHTS,1319);
+assert.equal(ai.WEIGHTS,1447);
 
 const liveSource=fs.readFileSync(require.resolve('./app.js'),'utf8');
 assert.match(liveSource,/RULES\.canWork\(person,floor\.type/,'真实游戏必须使用共享入职规则');

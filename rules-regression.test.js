@@ -52,11 +52,30 @@ assert.equal(engine.stateHash(cloned),engine.stateHash(aging),'相同状态必�
 cloned.people[0].age=99;
 assert.notEqual(engine.stateHash(cloned),engine.stateHash(aging),'任何状态差异都必须被一致性校验发现');
 
+const parentA={id:'pa',age:35,money:8,satisfaction:80,skills:{}},parentB={id:'pb',age:35,money:4,satisfaction:80,skills:{}},child={id:'child',age:10,money:0,parentIds:['pa','pb'],satisfaction:80,skills:{}};
+const economy={createdAt:0,dayMs:100,daysPerYear:12,lastPayrollDay:0,lastWellbeingDay:0,money:20,people:[parentA,parentB,child],floors:[{id:'rent',type:'rental',residents:['child'],workerIds:[]},{id:'clinic',type:'clinic',workerIds:['pa']}]};
+assert.equal(engine.spendableMoney(economy,child),12,'未成年消费必须使用父母共同资产');
+assert.equal(engine.charge(economy,child,9),true);
+assert.equal(engine.spendableMoney(economy,child),3);
+const economyA=engine.cloneState(economy),economyB=engine.cloneState(economy);
+engine.advanceDaily(economyA,100);
+engine.advanceDaily(economyB,100);
+assert.equal(engine.stateHash(economyA),engine.stateHash(economyB),'真人与训练调用同一每日结算时必须得到相同状态');
+
+const producer={id:'producer',age:30,money:0,satisfaction:50,skills:{食品:10,物流:10}},production={createdAt:0,dayMs:300000,money:0,people:[producer],floors:[{id:'hall',type:'cityhall',mayorId:null,workerIds:[],cycleStartedAt:1,stock:{}},{id:'garden',type:'garden',workerIds:['producer'],cycleStartedAt:1,stock:{vegetables:0},gardenDirectReserve:2,gardenMarketReserve:2,gardenMarketStock:0},{id:'market',type:'market',workerIds:['producer'],cycleStartedAt:1,stock:{cannedVegetables:0,cannedMeat:0},marketProduct:'cannedVegetables',marketVegetableReserve:3,marketMeatReserve:3,marketVegetableInputs:0,marketMeatInputs:0}]};
+const productionA=engine.cloneState(production),productionB=engine.cloneState(production);
+engine.advanceProduction(productionA,60001);
+engine.advanceProduction(productionB,60001);
+assert.equal(engine.stateHash(productionA),engine.stateHash(productionB),'房间生产链在页面与无界面运行中必须完全确定一致');
+assert.ok(productionA.floors[2].stock.cannedVegetables>0,'超市必须使用菜园专供库存生产罐头');
+
 const liveSource=fs.readFileSync(require.resolve('./app.js'),'utf8');
 assert.match(liveSource,/RULES\.canWork\(person,floor\.type/,'真实游戏必须使用共享入职规则');
 assert.match(liveSource,/RULES\.cityHallIncome/,'真实游戏必须使用共享市政厅收入规则');
 assert.match(liveSource,/ENGINE\.advanceTimeline\(state,Date\.now\(\)\)/,'真人时间线必须直接调用共享引擎');
 assert.match(liveSource,/ENGINE\.canMarry\(state,person,wife,garden\)/,'真人婚姻判定必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.advanceDaily\(state,now\)/,'真人每日经济结算必须直接调用共享引擎');
+assert.match(liveSource,/ENGINE\.advanceProduction\(state,now\)/,'真人房间生产必须直接调用共享引擎');
 assert.doesNotMatch(liveSource,/aiSimulate|aiRunGeneration|aiRandomGenome|v24Evaluate/,'主程序不得残留旧AI模拟器');
 
 console.log('shared rules regression: ok');
